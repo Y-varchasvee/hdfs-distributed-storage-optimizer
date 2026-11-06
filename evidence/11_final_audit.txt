@@ -1,0 +1,67 @@
+Final audit, 2026-11-05T07:10:41.916356+00:00
+[PASS] Free disk on the host: 5.4 GiB
+
+-- Services
+[PASS] HDFS containers healthy: 4 of 4
+[PASS] Backend health: {'status': 'ok', 'database': 'ok', 'hdfs_reachable': True, 'hdfs_health': 'healthy'}
+[PASS] Backend diagnostics, including a real HDFS write, read and delete
+[PASS] Frontend pages returning 200: 10 of 10
+[PASS] API documentation: 40 documented paths
+
+-- Authentic file upload and SHA-256-matching download
+[PASS] Source file matches its recorded provenance hash
+[PASS] Mode file: outcome stored_new, download is byte-identical, SHA-256 310ddf29f2b98b87...
+[PASS] Mode file: integrity check reads the bytes back from HDFS and passes
+[PASS] Mode chunk: outcome duplicate_reference, download is byte-identical, SHA-256 310ddf29f2b98b87...
+[PASS] Mode chunk: integrity check reads the bytes back from HDFS and passes
+[PASS] Mode raw: outcome stored_raw, download is byte-identical, SHA-256 310ddf29f2b98b87...
+[PASS] Mode raw: integrity check reads the bytes back from HDFS and passes
+[PASS] Database and HDFS agree: 0 orphans, 0 missing
+Current system: 34 files, 64.6% savings (derived), 49703751 bytes consumed (measured)
+[PASS] Every managed file verified: 34 of 34
+
+-- Automated tests
+[PASS] Unit and API tests: 129 passed, 0 failed
+[PASS] Integration on real HDFS tests: 17 passed, 0 failed
+[PASS] Browser tests: 13 passed, 0 failed
+[PASS] Frontend type check
+[PASS] Backend lint
+
+-- Evidence
+[PASS] Required screenshots present: 17 of 17 
+All screenshots: 43
+[PASS] Benchmark result files: 13 JSON, 10 CSV, 0 failed
+[PASS] Byte counts identical across repetitions: 0 scenarios differ
+[PASS] Failure experiments completed
+[PASS] Process kill: every file restored byte-identical after resume
+
+-- Report PDF
+[PASS] PDF opens: 250 pages, 23.1 MB
+  pages: 250, size: 23.1 MB
+  source files checked: 108
+  figures: 56, tables: 5, embedded images: 41
+  pages without a trailing page number: 0 []
+  result: PASS
+[PASS] Report audit: required sections, every source file, no stray output, nothing outside the page
+
+-- Presentation PPTX
+[PASS] PPTX opens: 20 slides, 1.9 MB
+[PASS] Slides with speaker notes: 20
+Native editable charts: 5; real screenshots: 10
+[PASS] Deck uses native charts and real screenshots
+[PASS] Deck figures match the benchmark results used by the report
+
+-- Deliverables
+[PASS] reports/final/HDFS_Storage_Optimizer_Complete_Report.pdf: 23148431 bytes
+[PASS] presentation/final/HDFS_Storage_Optimizer_Presentation.pptx: 1868510 bytes
+[PASS] presentation/final/HDFS_Storage_Optimizer_Presentation.pdf: 1677860 bytes
+[PASS] README.md: 9942 bytes
+[PASS] PROJECT_STATUS.md: 4017 bytes
+[PASS] documentation/VIVA_PREPARATION.md: 14115 bytes
+[PASS] documentation/RESULTS_SUMMARY.md: 6656 bytes
+[PASS] datasets/provenance/manifest.json: 18376 bytes
+[PASS] docker-compose.yml: 3038 bytes
+[PASS] docker-compose.light.yml: 1735 bytes
+[PASS] .env.example: 874 bytes
+
+RESULT: 42 of 42 checks passed

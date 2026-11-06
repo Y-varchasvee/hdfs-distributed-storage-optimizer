@@ -1,0 +1,3 @@
+mode,stored_bytes_two_references,stored_bytes_after_purging_one,survivor_passes_sha256,soft_delete_then_restore_passes_sha256,stored_bytes_after_purging_last,hdfs_files_after_purging_last
+file,174311,174311,True,True,0,0
+chunk,174311,174311,True,True,0,0

@@ -1,0 +1,4 @@
+step,factor,length_bytes,space_consumed_bytes,multiplier,average_block_replication,under_replicated_blocks,fsck_status,converged_in_s.mean,converged_in_s.min,converged_in_s.max
+initial,3,174311,522933,3.0,3.0,0,HEALTHY,,,
+changed,2,174311,348622,2.0,2.0,0,HEALTHY,12.120754416988348,12.120754416988348,12.120754416988348
+changed,3,174311,522933,3.0,3.0,0,HEALTHY,3.0790739999938523,3.0790739999938523,3.0790739999938523

@@ -1,0 +1,35 @@
+# Captured 2026-11-05T07:06:40Z
+
+$ docker compose --profile app run -d --service-ports -e HDFSOPT_ROOT_PATH=/hdfs-optimizer-container-test --name hdfsopt-backend-test backend
+a1697d2cc514173dfcfdd60f293eb669f8103b5e
+$ curl /api/v1/health   (backend inside a container, no DataNode address map)
+{"status":"ok","database":"ok","hdfs_reachable":true,"hdfs_health":"healthy"}
+$ curl /api/v1/system/diagnostics
+ok: True
+  Metadata database True SQLite integrity_check returned ok
+  NameNode connection True active, Hadoop 3.5.0, 3 live DataNodes
+  HDFS write, read and delete True Wrote, read back and deleted 47 bytes through WebHDFS
+  Upload spool directory True /data/spool
+$ upload an authentic file twice under different names
+  frankenstein.txt stored_new bytes written: 448885
+  same-book.txt duplicate_reference bytes written: 0
+$ download the second name and compare SHA-256 with the source
+2b97b7f8aad508649481d8dd4f6b54f9b965ddb3ba634e9151c815f537b49e42  -
+2b97b7f8aad508649481d8dd4f6b54f9b965ddb3ba634e9151c815f537b49e42  datasets/raw/originals/pg84.txt
+$ docker ps (backend container)
+hdfsopt-backend-test hdfs-optimizer-backend Up 4 seconds (health: starting)
+
+$ NEXT_STANDALONE=1 next build   (the build the frontend image runs; executed on the host, because the image could not be built with a safe disk margin)
+
+$ PORT=3199 node .next/standalone/server.js   (the command the frontend image runs)
+/ 200
+/files 200
+/duplicates 200
+/optimize 200
+/replication 200
+/cluster 200
+/analytics 200
+/activity 200
+/lab 200
+/settings 200
+standalone size:  52M

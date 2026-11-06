@@ -1,0 +1,1004 @@
+[
+ {
+  "name": "app_settings",
+  "columns": [
+   {
+    "name": "key",
+    "type": "VARCHAR(64)",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "value",
+    "type": "JSON",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "updated_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": ""
+   }
+  ],
+  "constraints": []
+ },
+ {
+  "name": "audit_events",
+  "columns": [
+   {
+    "name": "id",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "occurred_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "event_type",
+    "type": "VARCHAR(48)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "severity",
+    "type": "VARCHAR(8)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "entity_type",
+    "type": "VARCHAR(24)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "entity_id",
+    "type": "VARCHAR(64)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "message",
+    "type": "TEXT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "details",
+    "type": "JSON",
+    "nullable": true,
+    "key": ""
+   }
+  ],
+  "constraints": []
+ },
+ {
+  "name": "chunks",
+  "columns": [
+   {
+    "name": "id",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "sha256",
+    "type": "VARCHAR(64)",
+    "nullable": false,
+    "key": "unique, indexed"
+   },
+   {
+    "name": "size_bytes",
+    "type": "BIGINT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "hdfs_path",
+    "type": "VARCHAR(512)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "state",
+    "type": "VARCHAR(16)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "removed_at",
+    "type": "DATETIME",
+    "nullable": true,
+    "key": ""
+   }
+  ],
+  "constraints": []
+ },
+ {
+  "name": "dataset_sources",
+  "columns": [
+   {
+    "name": "id",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "title",
+    "type": "VARCHAR(255)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "author",
+    "type": "VARCHAR(255)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "ebook_id",
+    "type": "INTEGER",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "source_url",
+    "type": "VARCHAR(512)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "download_url",
+    "type": "VARCHAR(512)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "organization",
+    "type": "VARCHAR(255)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "downloaded_at",
+    "type": "DATETIME",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "file_format",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "size_bytes",
+    "type": "BIGINT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "sha256",
+    "type": "VARCHAR(64)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "kind",
+    "type": "VARCHAR(24)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "derived_from_id",
+    "type": "VARCHAR(32)",
+    "nullable": true,
+    "key": "references dataset_sources.id"
+   },
+   {
+    "name": "transformation",
+    "type": "TEXT",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "local_path",
+    "type": "VARCHAR(512)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "license_note",
+    "type": "TEXT",
+    "nullable": true,
+    "key": ""
+   }
+  ],
+  "constraints": [
+   "ck_dataset_derived_is_documented",
+   "ck_dataset_kind"
+  ]
+ },
+ {
+  "name": "deduplication_jobs",
+  "columns": [
+   {
+    "name": "id",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "kind",
+    "type": "VARCHAR(24)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "mode",
+    "type": "VARCHAR(8)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "chunk_size",
+    "type": "INTEGER",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "status",
+    "type": "VARCHAR(16)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "progress_done",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "progress_total",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "message",
+    "type": "TEXT",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "params",
+    "type": "JSON",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "result",
+    "type": "JSON",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "error",
+    "type": "TEXT",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "resumed_from_id",
+    "type": "VARCHAR(32)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "started_at",
+    "type": "DATETIME",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "finished_at",
+    "type": "DATETIME",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "heartbeat_at",
+    "type": "DATETIME",
+    "nullable": true,
+    "key": ""
+   }
+  ],
+  "constraints": []
+ },
+ {
+  "name": "experiment_runs",
+  "columns": [
+   {
+    "name": "id",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "scenario",
+    "type": "VARCHAR(48)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "params",
+    "type": "JSON",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "status",
+    "type": "VARCHAR(16)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "result",
+    "type": "JSON",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "error",
+    "type": "TEXT",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "job_id",
+    "type": "VARCHAR(32)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "started_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "finished_at",
+    "type": "DATETIME",
+    "nullable": true,
+    "key": ""
+   }
+  ],
+  "constraints": []
+ },
+ {
+  "name": "file_manifests",
+  "columns": [
+   {
+    "name": "id",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "file_sha256",
+    "type": "VARCHAR(64)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "file_size",
+    "type": "BIGINT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "chunk_size",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "chunk_count",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "manifest_bytes",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "hdfs_path",
+    "type": "VARCHAR(512)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "state",
+    "type": "VARCHAR(16)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "removed_at",
+    "type": "DATETIME",
+    "nullable": true,
+    "key": ""
+   }
+  ],
+  "constraints": [
+   "uq_manifest_content"
+  ]
+ },
+ {
+  "name": "objects",
+  "columns": [
+   {
+    "name": "id",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "sha256",
+    "type": "VARCHAR(64)",
+    "nullable": false,
+    "key": "unique, indexed"
+   },
+   {
+    "name": "size_bytes",
+    "type": "BIGINT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "hdfs_path",
+    "type": "VARCHAR(512)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "state",
+    "type": "VARCHAR(16)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "removed_at",
+    "type": "DATETIME",
+    "nullable": true,
+    "key": ""
+   }
+  ],
+  "constraints": []
+ },
+ {
+  "name": "performance_samples",
+  "columns": [
+   {
+    "name": "id",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "operation",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "mode",
+    "type": "VARCHAR(8)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "bytes_processed",
+    "type": "BIGINT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "duration_ms",
+    "type": "FLOAT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "file_id",
+    "type": "VARCHAR(32)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": "indexed"
+   }
+  ],
+  "constraints": []
+ },
+ {
+  "name": "replication_operations",
+  "columns": [
+   {
+    "name": "id",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "previous_factor",
+    "type": "INTEGER",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "requested_factor",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "status",
+    "type": "VARCHAR(16)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "files_total",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "files_changed",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "space_consumed_before",
+    "type": "BIGINT",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "space_consumed_after",
+    "type": "BIGINT",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "details",
+    "type": "JSON",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "error",
+    "type": "TEXT",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "requested_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "completed_at",
+    "type": "DATETIME",
+    "nullable": true,
+    "key": ""
+   }
+  ],
+  "constraints": []
+ },
+ {
+  "name": "storage_snapshots",
+  "columns": [
+   {
+    "name": "id",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "taken_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "reason",
+    "type": "VARCHAR(48)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "logical_files",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "logical_bytes",
+    "type": "BIGINT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "stored_bytes",
+    "type": "BIGINT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "unique_files",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   }
+  ],
+  "constraints": []
+ },
+ {
+  "name": "file_chunks",
+  "columns": [
+   {
+    "name": "id",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "manifest_id",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": "references file_manifests.id, indexed"
+   },
+   {
+    "name": "chunk_id",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": "references chunks.id, indexed"
+   },
+   {
+    "name": "ordinal",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "offset_bytes",
+    "type": "BIGINT",
+    "nullable": false,
+    "key": ""
+   }
+  ],
+  "constraints": [
+   "uq_manifest_ordinal",
+   "ck_ordinal_nonnegative"
+  ]
+ },
+ {
+  "name": "files",
+  "columns": [
+   {
+    "name": "id",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "name",
+    "type": "VARCHAR(255)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "folder",
+    "type": "VARCHAR(512)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "size_bytes",
+    "type": "BIGINT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "sha256",
+    "type": "VARCHAR(64)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "mime_type",
+    "type": "VARCHAR(128)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "extension",
+    "type": "VARCHAR(32)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "storage_mode",
+    "type": "VARCHAR(8)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "status",
+    "type": "VARCHAR(8)",
+    "nullable": false,
+    "key": "indexed"
+   },
+   {
+    "name": "raw_path",
+    "type": "VARCHAR(512)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "object_id",
+    "type": "VARCHAR(32)",
+    "nullable": true,
+    "key": "references objects.id, indexed"
+   },
+   {
+    "name": "manifest_id",
+    "type": "VARCHAR(32)",
+    "nullable": true,
+    "key": "references file_manifests.id, indexed"
+   },
+   {
+    "name": "provenance_label",
+    "type": "VARCHAR(24)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "dataset_source_id",
+    "type": "VARCHAR(32)",
+    "nullable": true,
+    "key": "references dataset_sources.id"
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "updated_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "deleted_at",
+    "type": "DATETIME",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "purged_at",
+    "type": "DATETIME",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "last_verified_at",
+    "type": "DATETIME",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "last_verified_ok",
+    "type": "BOOLEAN",
+    "nullable": true,
+    "key": ""
+   }
+  ],
+  "constraints": [
+   "ck_file_storage_pointer",
+   "ck_file_size",
+   "uq_active_file_name"
+  ]
+ },
+ {
+  "name": "optimization_history",
+  "columns": [
+   {
+    "name": "id",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "job_id",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": "references deduplication_jobs.id, indexed"
+   },
+   {
+    "name": "mode",
+    "type": "VARCHAR(8)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "chunk_size",
+    "type": "INTEGER",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "before",
+    "type": "JSON",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "after",
+    "type": "JSON",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "files_processed",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "files_failed",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "bytes_reclaimed_logical",
+    "type": "BIGINT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "duration_ms",
+    "type": "FLOAT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": "indexed"
+   }
+  ],
+  "constraints": []
+ },
+ {
+  "name": "integrity_checks",
+  "columns": [
+   {
+    "name": "id",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": "primary key"
+   },
+   {
+    "name": "file_id",
+    "type": "VARCHAR(32)",
+    "nullable": false,
+    "key": "references files.id, indexed"
+   },
+   {
+    "name": "ok",
+    "type": "BOOLEAN",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "expected_sha256",
+    "type": "VARCHAR(64)",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "actual_sha256",
+    "type": "VARCHAR(64)",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "bytes_read",
+    "type": "BIGINT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "chunks_checked",
+    "type": "INTEGER",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "missing",
+    "type": "JSON",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "corrupt",
+    "type": "JSON",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "detail",
+    "type": "TEXT",
+    "nullable": true,
+    "key": ""
+   },
+   {
+    "name": "duration_ms",
+    "type": "FLOAT",
+    "nullable": false,
+    "key": ""
+   },
+   {
+    "name": "checked_at",
+    "type": "DATETIME",
+    "nullable": false,
+    "key": "indexed"
+   }
+  ],
+  "constraints": []
+ }
+]

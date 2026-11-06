@@ -1,0 +1,43 @@
+{
+  "run_started": "2026-11-05T05:50:11.689852+00:00",
+  "machine": "arm64",
+  "os": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.12.4",
+  "hadoop_version": "3.5.0",
+  "live_datanodes": 3,
+  "default_replication": 3,
+  "deployment": "All daemons in Docker containers inside one Colima VM on one laptop; the backend runs on the host."
+}
+--- A_unique_files: 3 iteration(s)
+    iteration 1 done at 2.0 s
+    iteration 2 done at 3.6 s
+    iteration 3 done at 4.8 s
+--- B_exact_duplicates: 3 iteration(s)
+    iteration 1 done at 8.0 s
+    iteration 2 done at 17.6 s
+    iteration 3 done at 27.7 s
+--- C_many_names: 3 iteration(s)
+    iteration 1 done at 0.4 s
+    iteration 2 done at 0.7 s
+    iteration 3 done at 1.1 s
+--- D_chunk_sizes: 3 iteration(s)
+    iteration 1 done at 231.6 s
+    iteration 2 done at 527.4 s
+    iteration 3 done at 750.8 s
+--- D2_boundary_shift: 1 iteration(s)
+    iteration 1 done at 1.2 s
+--- E_roundtrip: 3 iteration(s)
+    iteration 1 done at 9.3 s
+    iteration 2 done at 18.9 s
+    iteration 3 done at 26.7 s
+--- F_shared_deletion: 1 iteration(s)
+    iteration 1 done at 0.4 s
+--- G_restore_after_optimize: 1 iteration(s)
+    iteration 1 done at 7.9 s
+--- H_replication: 1 iteration(s)
+    iteration 1 done at 15.3 s
+--- I_before_after: 3 iteration(s)
+    iteration 1 done at 148.5 s
+    iteration 2 done at 238.8 s
+    iteration 3 done at 349.8 s
+finished; 0 scenario(s) failed

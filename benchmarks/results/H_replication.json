@@ -1,0 +1,60 @@
+{
+  "scenario": "H_replication",
+  "title": "Replication changes",
+  "status": "succeeded",
+  "description": "Replication factor changes and measured effect.",
+  "iterations": 1,
+  "inconsistent_values": [],
+  "extra": {
+    "live_datanodes": 3,
+    "rejected_over_limit": "Replication factor 4 cannot be satisfied by 3 live DataNode(s). HDFS would leave blocks permanently under-replicated."
+  },
+  "rows": [
+    {
+      "step": "initial",
+      "factor": 3,
+      "length_bytes": 174311,
+      "space_consumed_bytes": 522933,
+      "multiplier": 3.0,
+      "average_block_replication": 3.0,
+      "under_replicated_blocks": 0,
+      "fsck_status": "HEALTHY"
+    },
+    {
+      "step": "changed",
+      "factor": 2,
+      "converged_in_s.mean": 12.120754416988348,
+      "converged_in_s.min": 12.120754416988348,
+      "converged_in_s.max": 12.120754416988348,
+      "length_bytes": 174311,
+      "space_consumed_bytes": 348622,
+      "multiplier": 2.0,
+      "average_block_replication": 2.0,
+      "under_replicated_blocks": 0,
+      "fsck_status": "HEALTHY"
+    },
+    {
+      "step": "changed",
+      "factor": 3,
+      "converged_in_s.mean": 3.0790739999938523,
+      "converged_in_s.min": 3.0790739999938523,
+      "converged_in_s.max": 3.0790739999938523,
+      "length_bytes": 174311,
+      "space_consumed_bytes": 522933,
+      "multiplier": 3.0,
+      "average_block_replication": 3.0,
+      "under_replicated_blocks": 0,
+      "fsck_status": "HEALTHY"
+    }
+  ],
+  "environment": {
+    "run_started": "2026-11-05T05:50:11.689852+00:00",
+    "machine": "arm64",
+    "os": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.12.4",
+    "hadoop_version": "3.5.0",
+    "live_datanodes": 3,
+    "default_replication": 3,
+    "deployment": "All daemons in Docker containers inside one Colima VM on one laptop; the backend runs on the host."
+  }
+}

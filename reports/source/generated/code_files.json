@@ -1,0 +1,582 @@
+[
+ {
+  "title": "Infrastructure and deployment",
+  "files": [
+   {
+    "path": "docker-compose.yml",
+    "lang": "yaml",
+    "lines": 100
+   },
+   {
+    "path": "docker-compose.light.yml",
+    "lang": "yaml",
+    "lines": 56
+   },
+   {
+    "path": ".env.example",
+    "lang": "text",
+    "lines": 23
+   },
+   {
+    "path": "infrastructure/docker/hadoop/Dockerfile",
+    "lang": "dockerfile",
+    "lines": 44
+   },
+   {
+    "path": "infrastructure/docker/hadoop/entrypoint.sh",
+    "lang": "bash",
+    "lines": 29
+   },
+   {
+    "path": "infrastructure/hadoop/core-site.xml",
+    "lang": "xml",
+    "lines": 8
+   },
+   {
+    "path": "infrastructure/hadoop/hdfs-site.xml",
+    "lang": "xml",
+    "lines": 25
+   },
+   {
+    "path": "backend/Dockerfile",
+    "lang": "dockerfile",
+    "lines": 26
+   },
+   {
+    "path": "backend/.dockerignore",
+    "lang": "text",
+    "lines": 8
+   },
+   {
+    "path": "frontend/Dockerfile",
+    "lang": "dockerfile",
+    "lines": 20
+   },
+   {
+    "path": "frontend/.dockerignore",
+    "lang": "text",
+    "lines": 8
+   }
+  ]
+ },
+ {
+  "title": "Backend: core, models and HDFS client",
+  "files": [
+   {
+    "path": "backend/requirements-dev.txt",
+    "lang": "text",
+    "lines": 5
+   },
+   {
+    "path": "backend/requirements.txt",
+    "lang": "text",
+    "lines": 9
+   },
+   {
+    "path": "backend/alembic.ini",
+    "lang": "ini",
+    "lines": 28
+   },
+   {
+    "path": "backend/pytest.ini",
+    "lang": "ini",
+    "lines": 10
+   },
+   {
+    "path": "backend/app/main.py",
+    "lang": "python",
+    "lines": 109
+   },
+   {
+    "path": "backend/app/core/config.py",
+    "lang": "python",
+    "lines": 73
+   },
+   {
+    "path": "backend/app/core/db.py",
+    "lang": "python",
+    "lines": 60
+   },
+   {
+    "path": "backend/app/core/errors.py",
+    "lang": "python",
+    "lines": 98
+   },
+   {
+    "path": "backend/app/models/entities.py",
+    "lang": "python",
+    "lines": 355
+   },
+   {
+    "path": "backend/app/schemas/api.py",
+    "lang": "python",
+    "lines": 168
+   },
+   {
+    "path": "backend/app/hdfs/base.py",
+    "lang": "python",
+    "lines": 87
+   },
+   {
+    "path": "backend/app/hdfs/webhdfs.py",
+    "lang": "python",
+    "lines": 200
+   },
+   {
+    "path": "backend/migrations/env.py",
+    "lang": "python",
+    "lines": 31
+   },
+   {
+    "path": "backend/migrations/script.py.mako",
+    "lang": "text",
+    "lines": 23
+   },
+   {
+    "path": "backend/migrations/versions/a04f640e13c2_initial_schema.py",
+    "lang": "python",
+    "lines": 370
+   }
+  ]
+ },
+ {
+  "title": "Backend: deduplication and services",
+  "files": [
+   {
+    "path": "backend/app/services/analytics.py",
+    "lang": "python",
+    "lines": 305
+   },
+   {
+    "path": "backend/app/services/audit.py",
+    "lang": "python",
+    "lines": 57
+   },
+   {
+    "path": "backend/app/services/content_store.py",
+    "lang": "python",
+    "lines": 304
+   },
+   {
+    "path": "backend/app/services/context.py",
+    "lang": "python",
+    "lines": 85
+   },
+   {
+    "path": "backend/app/services/datasets.py",
+    "lang": "python",
+    "lines": 376
+   },
+   {
+    "path": "backend/app/services/experiments.py",
+    "lang": "python",
+    "lines": 538
+   },
+   {
+    "path": "backend/app/services/hashing.py",
+    "lang": "python",
+    "lines": 58
+   },
+   {
+    "path": "backend/app/services/ingest.py",
+    "lang": "python",
+    "lines": 304
+   },
+   {
+    "path": "backend/app/services/integrity.py",
+    "lang": "python",
+    "lines": 182
+   },
+   {
+    "path": "backend/app/services/jobs.py",
+    "lang": "python",
+    "lines": 117
+   },
+   {
+    "path": "backend/app/services/lifecycle.py",
+    "lang": "python",
+    "lines": 255
+   },
+   {
+    "path": "backend/app/services/monitor.py",
+    "lang": "python",
+    "lines": 172
+   },
+   {
+    "path": "backend/app/services/optimizer.py",
+    "lang": "python",
+    "lines": 367
+   },
+   {
+    "path": "backend/app/services/replication.py",
+    "lang": "python",
+    "lines": 209
+   },
+   {
+    "path": "backend/app/services/settings_store.py",
+    "lang": "python",
+    "lines": 68
+   }
+  ]
+ },
+ {
+  "title": "Backend: API routes",
+  "files": [
+   {
+    "path": "backend/app/api/dedup.py",
+    "lang": "python",
+    "lines": 214
+   },
+   {
+    "path": "backend/app/api/deps.py",
+    "lang": "python",
+    "lines": 20
+   },
+   {
+    "path": "backend/app/api/files.py",
+    "lang": "python",
+    "lines": 299
+   },
+   {
+    "path": "backend/app/api/system.py",
+    "lang": "python",
+    "lines": 405
+   }
+  ]
+ },
+ {
+  "title": "Frontend: libraries and shared components",
+  "files": [
+   {
+    "path": "frontend/package.json",
+    "lang": "json",
+    "lines": 42
+   },
+   {
+    "path": "frontend/tsconfig.json",
+    "lang": "json",
+    "lines": 35
+   },
+   {
+    "path": "frontend/next.config.ts",
+    "lang": "typescript",
+    "lines": 19
+   },
+   {
+    "path": "frontend/eslint.config.mjs",
+    "lang": "javascript",
+    "lines": 19
+   },
+   {
+    "path": "frontend/components.json",
+    "lang": "json",
+    "lines": 26
+   },
+   {
+    "path": "frontend/.env.example",
+    "lang": "text",
+    "lines": 5
+   },
+   {
+    "path": "frontend/app/globals.css",
+    "lang": "css",
+    "lines": 147
+   },
+   {
+    "path": "frontend/app/layout.tsx",
+    "lang": "tsx",
+    "lines": 28
+   },
+   {
+    "path": "frontend/lib/api.ts",
+    "lang": "typescript",
+    "lines": 102
+   },
+   {
+    "path": "frontend/lib/format.ts",
+    "lang": "typescript",
+    "lines": 83
+   },
+   {
+    "path": "frontend/lib/queries.ts",
+    "lang": "typescript",
+    "lines": 41
+   },
+   {
+    "path": "frontend/lib/types.ts",
+    "lang": "typescript",
+    "lines": 467
+   },
+   {
+    "path": "frontend/lib/utils.ts",
+    "lang": "typescript",
+    "lines": 7
+   },
+   {
+    "path": "frontend/components/common.tsx",
+    "lang": "tsx",
+    "lines": 271
+   },
+   {
+    "path": "frontend/components/providers.tsx",
+    "lang": "tsx",
+    "lines": 26
+   },
+   {
+    "path": "frontend/components/shell/app-shell.tsx",
+    "lang": "tsx",
+    "lines": 206
+   },
+   {
+    "path": "frontend/components/charts/index.tsx",
+    "lang": "tsx",
+    "lines": 316
+   }
+  ]
+ },
+ {
+  "title": "Frontend: pages",
+  "files": [
+   {
+    "path": "frontend/app/page.tsx",
+    "lang": "tsx",
+    "lines": 320
+   },
+   {
+    "path": "frontend/app/activity/page.tsx",
+    "lang": "tsx",
+    "lines": 135
+   },
+   {
+    "path": "frontend/app/analytics/page.tsx",
+    "lang": "tsx",
+    "lines": 195
+   },
+   {
+    "path": "frontend/app/cluster/page.tsx",
+    "lang": "tsx",
+    "lines": 199
+   },
+   {
+    "path": "frontend/app/duplicates/page.tsx",
+    "lang": "tsx",
+    "lines": 266
+   },
+   {
+    "path": "frontend/app/files/page.tsx",
+    "lang": "tsx",
+    "lines": 655
+   },
+   {
+    "path": "frontend/app/lab/page.tsx",
+    "lang": "tsx",
+    "lines": 345
+   },
+   {
+    "path": "frontend/app/optimize/page.tsx",
+    "lang": "tsx",
+    "lines": 417
+   },
+   {
+    "path": "frontend/app/replication/page.tsx",
+    "lang": "tsx",
+    "lines": 215
+   },
+   {
+    "path": "frontend/app/settings/page.tsx",
+    "lang": "tsx",
+    "lines": 254
+   }
+  ]
+ },
+ {
+  "title": "Tests",
+  "files": [
+   {
+    "path": "backend/tests/conftest.py",
+    "lang": "python",
+    "lines": 84
+   },
+   {
+    "path": "backend/tests/support/local_fs_adapter.py",
+    "lang": "python",
+    "lines": 198
+   },
+   {
+    "path": "backend/tests/test_api.py",
+    "lang": "python",
+    "lines": 385
+   },
+   {
+    "path": "backend/tests/test_hashing_chunking.py",
+    "lang": "python",
+    "lines": 57
+   },
+   {
+    "path": "backend/tests/test_ingest_dedup.py",
+    "lang": "python",
+    "lines": 217
+   },
+   {
+    "path": "backend/tests/test_integration_hdfs.py",
+    "lang": "python",
+    "lines": 269
+   },
+   {
+    "path": "backend/tests/test_lifecycle_integrity.py",
+    "lang": "python",
+    "lines": 296
+   },
+   {
+    "path": "backend/tests/test_optimizer_metrics.py",
+    "lang": "python",
+    "lines": 315
+   },
+   {
+    "path": "frontend/playwright.config.ts",
+    "lang": "typescript",
+    "lines": 41
+   },
+   {
+    "path": "frontend/e2e/app.spec.ts",
+    "lang": "typescript",
+    "lines": 181
+   },
+   {
+    "path": "frontend/e2e/teardown.ts",
+    "lang": "typescript",
+    "lines": 5
+   },
+   {
+    "path": "frontend/capture/capture.spec.ts",
+    "lang": "typescript",
+    "lines": 315
+   },
+   {
+    "path": "frontend/capture/playwright.capture.config.ts",
+    "lang": "typescript",
+    "lines": 14
+   }
+  ]
+ },
+ {
+  "title": "Reproduction and tooling scripts",
+  "files": [
+   {
+    "path": "scripts/build-app-images.sh",
+    "lang": "bash",
+    "lines": 28
+   },
+   {
+    "path": "scripts/capture_evidence.sh",
+    "lang": "bash",
+    "lines": 17
+   },
+   {
+    "path": "scripts/capture_terminal.sh",
+    "lang": "bash",
+    "lines": 71
+   },
+   {
+    "path": "scripts/env.sh",
+    "lang": "bash",
+    "lines": 14
+   },
+   {
+    "path": "scripts/reset-demo.sh",
+    "lang": "bash",
+    "lines": 32
+   },
+   {
+    "path": "scripts/setup.sh",
+    "lang": "bash",
+    "lines": 19
+   },
+   {
+    "path": "scripts/start-all.sh",
+    "lang": "bash",
+    "lines": 31
+   },
+   {
+    "path": "scripts/start-backend.sh",
+    "lang": "bash",
+    "lines": 6
+   },
+   {
+    "path": "scripts/start-frontend.sh",
+    "lang": "bash",
+    "lines": 7
+   },
+   {
+    "path": "scripts/start-runtime.sh",
+    "lang": "bash",
+    "lines": 11
+   },
+   {
+    "path": "scripts/stop-all.sh",
+    "lang": "bash",
+    "lines": 11
+   },
+   {
+    "path": "scripts/audit_report.py",
+    "lang": "python",
+    "lines": 126
+   },
+   {
+    "path": "scripts/build_report.py",
+    "lang": "python",
+    "lines": 117
+   },
+   {
+    "path": "scripts/download_dataset.py",
+    "lang": "python",
+    "lines": 43
+   },
+   {
+    "path": "scripts/final_audit.py",
+    "lang": "python",
+    "lines": 180
+   },
+   {
+    "path": "scripts/make_charts.py",
+    "lang": "python",
+    "lines": 270
+   },
+   {
+    "path": "scripts/make_diagrams.py",
+    "lang": "python",
+    "lines": 401
+   },
+   {
+    "path": "scripts/run_benchmarks.py",
+    "lang": "python",
+    "lines": 203
+   },
+   {
+    "path": "scripts/run_failure_experiments.py",
+    "lang": "python",
+    "lines": 310
+   },
+   {
+    "path": "presentation/source/prepare_crops.py",
+    "lang": "python",
+    "lines": 39
+   },
+   {
+    "path": "presentation/source/build_deck.js",
+    "lang": "javascript",
+    "lines": 526
+   },
+   {
+    "path": "presentation/source/package.json",
+    "lang": "json",
+    "lines": 8
+   },
+   {
+    "path": "reports/source/requirements.txt",
+    "lang": "text",
+    "lines": 4
+   }
+  ]
+ }
+]

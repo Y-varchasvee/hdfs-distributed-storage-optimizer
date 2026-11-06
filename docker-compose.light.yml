@@ -1,0 +1,55 @@
+# Resource-constrained deployment: 1 NameNode, 2 DataNodes, replication factor 2.
+# Replication factor 3 would be permanently under-replicated here, so it is not offered.
+name: hdfs-optimizer-light
+
+x-hadoop: &hadoop
+  image: hdfs-optimizer/hadoop:3.5.0
+  build:
+    context: infrastructure/docker/hadoop
+    args: { HADOOP_VERSION: "3.5.0" }
+  restart: unless-stopped
+  init: true
+
+services:
+  namenode:
+    <<: *hadoop
+    hostname: namenode
+    command: ["namenode"]
+    environment: { HDFS_REPLICATION: "2", HDFS_NAMENODE_OPTS: "-Xmx384m" }
+    ports: ["127.0.0.1:9870:9870"]
+    volumes:
+      - ./infrastructure/hadoop:/templates:ro
+      - light-namenode-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS 'http://localhost:9870/jmx?qry=Hadoop:service=NameNode,name=NameNodeStatus' | grep -q active"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+
+  datanode1:
+    <<: *hadoop
+    hostname: datanode1
+    command: ["datanode"]
+    depends_on: { namenode: { condition: service_healthy } }
+    environment: { HDFS_REPLICATION: "2", DATANODE_HOSTNAME: datanode1, HDFS_DATANODE_OPTS: "-Xmx192m" }
+    ports: ["127.0.0.1:19864:9864"]
+    volumes:
+      - ./infrastructure/hadoop:/templates:ro
+      - light-datanode1-data:/data
+
+  datanode2:
+    <<: *hadoop
+    hostname: datanode2
+    command: ["datanode"]
+    depends_on: { namenode: { condition: service_healthy } }
+    environment: { HDFS_REPLICATION: "2", DATANODE_HOSTNAME: datanode2, HDFS_DATANODE_OPTS: "-Xmx192m" }
+    ports: ["127.0.0.1:19865:9864"]
+    volumes:
+      - ./infrastructure/hadoop:/templates:ro
+      - light-datanode2-data:/data
+
+volumes:
+  light-namenode-data:
+  light-datanode1-data:
+  light-datanode2-data:

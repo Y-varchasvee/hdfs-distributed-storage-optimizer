@@ -1,0 +1,59 @@
+# Captured 2026-11-05T06:41:52Z
+
+$ curl -s http://127.0.0.1:8100/api/v1/health
+{"status":"ok","database":"ok","hdfs_reachable":true,"hdfs_health":"healthy"}[exit code 0]
+
+$ curl -s http://127.0.0.1:8100/api/v1/storage/savings --output /dev/null -w HTTP %{http_code} in %{time_total}s\n
+HTTP 200 in 0.017953s
+[exit code 0]
+
+$ python3 -c import json,urllib.request as u; d=json.load(u.urlopen('http://127.0.0.1:8100/api/v1/storage/statistics')); print(json.dumps(d['derived'],indent=1)); print(json.dumps({k:d['measured'][k] for k in ('length','space_consumed','file_count','directory_count')},indent=1))
+{
+ "logical_files": 34,
+ "logical_bytes": 46699993,
+ "unique_files": 15,
+ "unique_content_bytes": 17897126,
+ "duplicate_files": 19,
+ "deleted_retained_files": 0,
+ "deleted_retained_bytes": 0,
+ "raw_files": 0,
+ "raw_bytes": 0,
+ "object_count": 0,
+ "object_bytes": 0,
+ "chunk_count": 259,
+ "chunk_bytes": 16534916,
+ "manifest_count": 15,
+ "manifest_bytes": 33001,
+ "chunk_references": 280,
+ "duplicate_chunk_references": 21,
+ "stored_content_bytes": 16534916,
+ "bytes_avoided": 30165077,
+ "savings_percent": 64.59332231591554,
+ "dedup_ratio": 2.824325989923384,
+ "files_by_mode": {
+  "chunk": 34
+ }
+}
+{
+ "length": 16567917,
+ "space_consumed": 49703751,
+ "file_count": 274,
+ "directory_count": 491
+}
+[exit code 0]
+
+$ tail -n 12 backend/data/backend.log
+INFO:     127.0.0.1:55548 - "GET /api/v1/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55557 - "GET /api/v1/files/folders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55554 - "GET /api/v1/files?status=active&sort=created&order=desc&page=1&page_size=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55554 - "OPTIONS /api/v1/files/upload HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55557 - "POST /api/v1/files/upload HTTP/1.1" 503 Service Unavailable
+INFO:     127.0.0.1:55554 - "GET /api/v1/files/folders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55557 - "GET /api/v1/files?status=active&sort=created&order=desc&page=1&page_size=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55562 - "GET /api/v1/cluster/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55565 - "GET /api/v1/system/diagnostics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55570 - "GET /api/v1/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55572 - "GET /api/v1/storage/savings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55573 - "GET /api/v1/storage/statistics HTTP/1.1" 200 OK
+[exit code 0]
+

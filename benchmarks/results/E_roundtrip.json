@@ -1,0 +1,57 @@
+{
+  "scenario": "E_roundtrip",
+  "title": "Download and checksum verification",
+  "status": "succeeded",
+  "description": "Byte-for-byte restore compared with the publisher's bytes on disk.",
+  "iterations": 3,
+  "inconsistent_values": [],
+  "extra": {},
+  "rows": [
+    {
+      "mode": "raw",
+      "files": 15,
+      "files_matching_source_sha256": 15,
+      "bytes_read": 41093705,
+      "restore_duration_s.mean": 0.25454237500283244,
+      "restore_duration_s.min": 0.1940075419988716,
+      "restore_duration_s.max": 0.28982987500785384,
+      "restore_throughput_mib_s.mean": 159.09644297975368,
+      "restore_throughput_mib_s.min": 135.217292639046,
+      "restore_throughput_mib_s.max": 202.00251299871135
+    },
+    {
+      "mode": "file",
+      "files": 15,
+      "files_matching_source_sha256": 15,
+      "bytes_read": 41093705,
+      "restore_duration_s.mean": 0.25611363866967923,
+      "restore_duration_s.min": 0.22994662501150742,
+      "restore_duration_s.max": 0.2788457499991637,
+      "restore_throughput_mib_s.mean": 153.98919589253978,
+      "restore_throughput_mib_s.min": 140.543691358368,
+      "restore_throughput_mib_s.max": 170.43090335643708
+    },
+    {
+      "mode": "chunk",
+      "files": 15,
+      "files_matching_source_sha256": 15,
+      "bytes_read": 41093705,
+      "restore_duration_s.mean": 1.115953111332298,
+      "restore_duration_s.min": 1.0349293749895878,
+      "restore_duration_s.max": 1.1731229169963626,
+      "restore_throughput_mib_s.mean": 35.21897323765521,
+      "restore_throughput_mib_s.min": 33.40656844793069,
+      "restore_throughput_mib_s.max": 37.867328893693234
+    }
+  ],
+  "environment": {
+    "run_started": "2026-11-05T05:50:11.689852+00:00",
+    "machine": "arm64",
+    "os": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.12.4",
+    "hadoop_version": "3.5.0",
+    "live_datanodes": 3,
+    "default_replication": 3,
+    "deployment": "All daemons in Docker containers inside one Colima VM on one laptop; the backend runs on the host."
+  }
+}

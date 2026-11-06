@@ -1,0 +1,7 @@
+{
+  "name": "hdfs-optimizer-deck",
+  "private": true,
+  "description": "Builds the project presentation from measured results and real screenshots",
+  "scripts": { "build": "node build_deck.js" },
+  "dependencies": { "jszip": "3.10.1", "pptxgenjs": "4.0.1" }
+}

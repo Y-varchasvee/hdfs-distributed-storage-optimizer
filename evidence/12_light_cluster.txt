@@ -1,0 +1,33 @@
+# Captured 2026-11-05T06:53:09Z
+
+$ docker compose stop   (standard cluster; data kept)
+ Container hdfs-optimizer-namenode-1 Stopped 
+$ docker compose -f docker-compose.light.yml up -d --wait
+ Container hdfs-optimizer-light-datanode2-1 Healthy 
+$ docker compose -f docker-compose.light.yml ps
+NAME                               STATE
+hdfs-optimizer-light-datanode1-1   running
+hdfs-optimizer-light-datanode2-1   running
+hdfs-optimizer-light-namenode-1    running
+$ dfsadmin -report (live nodes)
+Live datanodes (2):
+Hostname: datanode2
+Hostname: datanode1
+$ write a real dataset file, then fsck
+ hdfs-optimizer-light-namenode-1 Copied datasets/raw/originals/pg11.txt to hdfs-optimizer-light-namenode-1:/tmp/pg11.txt
+/light/pg11.txt 174311 bytes, replicated: replication=2, 1 block(s):  OK
+Status: HEALTHY
+ Under-replicated blocks:	0 (0.0 %)
+ Default replication factor:	2
+ Average block replication:	2.0
+01b38ea4c710a84bc18d0bd41271a5a1a92b94e97b2812f4dece97d4a694725e  -
+$ recorded SHA-256 of pg11.txt
+01b38ea4c710a84bc18d0bd41271a5a1a92b94e97b2812f4dece97d4a694725e  datasets/raw/originals/pg11.txt
+$ docker stats (memory)
+hdfs-optimizer-light-datanode2-1 152.9MiB / 3.813GiB
+hdfs-optimizer-light-datanode1-1 157.8MiB / 3.813GiB
+hdfs-optimizer-light-namenode-1 214.5MiB / 3.813GiB
+$ docker compose -f docker-compose.light.yml down -v   (removes only its own volumes)
+ Network hdfs-optimizer-light_default Removed 
+$ docker compose up -d --wait   (standard cluster again)
+ Container hdfs-optimizer-datanode3-1 Healthy 

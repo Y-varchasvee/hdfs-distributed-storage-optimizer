@@ -1,0 +1,66 @@
+--- J1_datanode_failure
+{
+  "status": "completed",
+  "readable_immediately_after_stop": true,
+  "seconds_until_namenode_declared_dead": 87.73704704199918,
+  "cluster_health_while_dead": "degraded",
+  "live_datanodes_while_dead": 2,
+  "under_replicated_blocks_when_first_declared_dead": 0,
+  "further_seconds_until_fsck_reports_under_replication": 8.413344959000824,
+  "fsck_while_dead": [
+    "Under-replicated blocks:\t3 (100.0 %)",
+    "Average block replication:\t2.0",
+    "Missing blocks:\t\t0"
+  ],
+  "whole_file_mode_readable_while_dead": true,
+  "chunk_mode_readable_while_dead": true,
+  "replication_factor_3_request_while_two_live_http_status": 422,
+  "replication_factor_3_request_message": "Replication factor 3 cannot be satisfied by 2 live DataNode(s). HDFS would leave blocks permanently under-replicated.",
+  "seconds_until_datanode_live_again": 11.515512709011091,
+  "seconds_until_no_under_replicated_blocks": 0.02309675001015421
+}
+--- J2_namenode_failure
+{
+  "status": "completed",
+  "upload_http_status_during_outage": 503,
+  "upload_error_code": "hdfs_unavailable",
+  "upload_failed_in_seconds": 0.020807915992918424,
+  "logical_files_before": 2,
+  "logical_files_during_outage": 2,
+  "api_still_answers_health": "ok",
+  "health_reports_hdfs_reachable": false,
+  "cluster_status_reachable": false,
+  "measured_statistics_available_during_outage": false,
+  "recent_audit_event_types": [
+    "request.failed",
+    "file.downloaded",
+    "file.downloaded",
+    "file.downloaded",
+    "file.uploaded"
+  ],
+  "seconds_until_namenode_had_3_datanodes": 13.01102512498619,
+  "seconds_until_writes_accepted": 0.9938789580046432,
+  "retry_after_restart_http_status": 201,
+  "retry_outcome": "stored_new"
+}
+--- J3_process_kill
+{
+  "status": "completed",
+  "files": 27,
+  "killed_at_progress": "4 of 29",
+  "job_status_after_restart": "interrupted",
+  "job_message_after_restart": "The server stopped while this job was active. Completed files are safe; it can be resumed.",
+  "storage_modes_after_kill": {
+    "raw": 25,
+    "chunk": 2
+  },
+  "files_passing_sha256_before_resume": 27,
+  "orphans_found_before_resume": 0,
+  "orphan_areas_before_resume": [],
+  "missing_found_before_resume": 0,
+  "resumed_job_status": "succeeded",
+  "resumed_job_files_processed": 25,
+  "files_restored_byte_identical_after_resume": 27,
+  "orphans_after_resume": 0,
+  "missing_after_resume": 0
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<configuration>
+  <property><name>dfs.replication</name><value>@REPLICATION@</value></property>
+  <property><name>dfs.namenode.name.dir</name><value>file:///data/nn</value></property>
+  <property><name>dfs.datanode.data.dir</name><value>file:///data/dn</value></property>
+  <property><name>dfs.webhdfs.enabled</name><value>true</value></property>
+
+  <!-- Container networking -->
+  <property><name>dfs.namenode.rpc-bind-host</name><value>0.0.0.0</value></property>
+  <property><name>dfs.namenode.http-bind-host</name><value>0.0.0.0</value></property>
+  <property><name>dfs.namenode.http-address</name><value>namenode:9870</value></property>
+  <property><name>dfs.datanode.hostname</name><value>@DATANODE_HOSTNAME@</value></property>
+  <property><name>dfs.datanode.http.address</name><value>0.0.0.0:9864</value></property>
+  <property><name>dfs.client.use.datanode.hostname</name><value>true</value></property>
+  <property><name>dfs.datanode.use.datanode.hostname</name><value>true</value></property>
+  <property><name>dfs.namenode.datanode.registration.ip-hostname-check</name><value>false</value></property>
+
+  <!-- Demonstration tuning: a stopped DataNode is declared dead after about 90 s rather than the
+       default 10.5 minutes, so re-replication can be observed during a live demonstration. -->
+  <property><name>dfs.heartbeat.interval</name><value>3</value></property>
+  <property><name>dfs.namenode.heartbeat.recheck-interval</name><value>30000</value></property>
+  <property><name>dfs.namenode.safemode.extension</name><value>5000</value></property>
+  <property><name>dfs.client.block.write.replace-datanode-on-failure.best-effort</name><value>true</value></property>
+</configuration>

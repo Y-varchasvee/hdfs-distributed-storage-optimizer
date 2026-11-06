@@ -1,0 +1,22 @@
+# Captured 2026-11-05T06:41:59Z
+
+$ pytest -m hdfs -v  (real HDFS cluster)
+test_authentic_file_matches_recorded_provenance PASSED [  5%]
+test_webhdfs_primitives_on_the_real_cluster PASSED [ 11%]
+test_empty_file_can_be_stored_on_the_real_cluster PASSED [ 17%]
+test_authentic_file_round_trips_byte_for_byte[raw] PASSED [ 23%]
+test_authentic_file_round_trips_byte_for_byte[file] PASSED [ 29%]
+test_authentic_file_round_trips_byte_for_byte[chunk] PASSED [ 35%]
+test_binary_authentic_file_round_trips_through_chunks PASSED [ 41%]
+test_exact_duplicate_consumes_no_additional_hdfs_space PASSED [ 47%]
+test_hdfs_replicates_stored_objects PASSED [ 52%]
+test_measured_space_includes_replication PASSED [ 58%]
+test_optimization_reduces_hdfs_measured_space_and_preserves_bytes PASSED [ 64%]
+test_chunk_optimization_on_real_hdfs PASSED [ 70%]
+test_deleting_shared_reference_on_real_hdfs PASSED [ 76%]
+test_cluster_monitor_reads_real_namenode PASSED [ 82%]
+test_fsck_servlet_is_parsed PASSED       [ 88%]
+test_replication_change_converges_on_real_cluster PASSED [ 94%]
+test_replication_beyond_live_datanodes_is_refused_on_real_cluster PASSED [100%]
+===================== 17 passed, 129 deselected in 16.77s ======================
+

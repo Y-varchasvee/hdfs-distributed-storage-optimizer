@@ -1,0 +1,198 @@
+shvachko2010:
+  type: article
+  title: The Hadoop Distributed File System
+  author: ["Shvachko, Konstantin", "Kuang, Hairong", "Radia, Sanjay", "Chansler, Robert"]
+  date: 2010
+  page-range: 1-10
+  serial-number:
+    doi: 10.1109/MSST.2010.5496972
+  parent:
+    type: proceedings
+    title: 2010 IEEE 26th Symposium on Mass Storage Systems and Technologies (MSST)
+
+ghemawat2003:
+  type: article
+  title: The Google File System
+  author: ["Ghemawat, Sanjay", "Gobioff, Howard", "Leung, Shun-Tak"]
+  date: 2003
+  page-range: 29-43
+  serial-number:
+    doi: 10.1145/945445.945450
+  parent:
+    type: proceedings
+    title: Proceedings of the Nineteenth ACM Symposium on Operating Systems Principles (SOSP)
+
+hdfsdesign:
+  type: web
+  title: "HDFS Architecture (Apache Hadoop 3.5.0 documentation)"
+  author: The Apache Software Foundation
+  url:
+    value: https://hadoop.apache.org/docs/r3.5.0/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html
+    date: 2026-11-05
+
+webhdfs:
+  type: web
+  title: "WebHDFS REST API (Apache Hadoop 3.5.0 documentation)"
+  author: The Apache Software Foundation
+  url:
+    value: https://hadoop.apache.org/docs/r3.5.0/hadoop-project-dist/hadoop-hdfs/WebHDFS.html
+    date: 2026-11-05
+
+smallfiles:
+  type: web
+  title: The Small Files Problem
+  author: Cloudera
+  date: 2009-02-02
+  url:
+    value: https://blog.cloudera.com/the-small-files-problem/
+    date: 2026-11-05
+
+zhu2008:
+  type: article
+  title: Avoiding the Disk Bottleneck in the Data Domain Deduplication File System
+  author: ["Zhu, Benjamin", "Li, Kai", "Patterson, Hugo"]
+  date: 2008
+  url:
+    value: https://www.usenix.org/conference/fast-08/avoiding-disk-bottleneck-data-domain-deduplication-file-system
+  parent:
+    type: proceedings
+    title: 6th USENIX Conference on File and Storage Technologies (FAST)
+
+venti2002:
+  type: article
+  title: "Venti: A New Approach to Archival Data Storage"
+  author: ["Quinlan, Sean", "Dorward, Sean"]
+  date: 2002
+  url:
+    value: https://www.usenix.org/conference/fast-02/venti-new-approach-archival-data-storage
+  parent:
+    type: proceedings
+    title: 1st USENIX Conference on File and Storage Technologies (FAST)
+
+lbfs2001:
+  type: article
+  title: A Low-bandwidth Network File System
+  author: ["Muthitacharoen, Athicha", "Chen, Benjie", "Mazières, David"]
+  date: 2001
+  page-range: 174-187
+  serial-number:
+    doi: 10.1145/502034.502052
+  parent:
+    type: proceedings
+    title: Proceedings of the Eighteenth ACM Symposium on Operating Systems Principles (SOSP)
+
+fastcdc2016:
+  type: article
+  title: "FastCDC: A Fast and Efficient Content-Defined Chunking Approach for Data Deduplication"
+  author: ["Xia, Wen", "Zhou, Yukun", "Jiang, Hong", "Feng, Dan", "Hua, Yu", "Hu, Yuchong", "Zhang, Yucheng", "Liu, Qing"]
+  date: 2016
+  url:
+    value: https://www.usenix.org/conference/atc16/technical-sessions/presentation/xia
+  parent:
+    type: proceedings
+    title: 2016 USENIX Annual Technical Conference (ATC)
+
+xia2016survey:
+  type: article
+  title: A Comprehensive Study of the Past, Present, and Future of Data Deduplication
+  author: ["Xia, Wen", "Jiang, Hong", "Feng, Dan", "Douglis, Fred", "Shilane, Philip", "Hua, Yu", "Fu, Min", "Zhang, Yucheng", "Zhou, Yukun"]
+  date: 2016
+  page-range: 1681-1710
+  serial-number:
+    doi: 10.1109/JPROC.2016.2571298
+  parent:
+    type: periodical
+    title: Proceedings of the IEEE
+    volume: 104
+    issue: 9
+
+paulo2014:
+  type: article
+  title: A Survey and Classification of Storage Deduplication Systems
+  author: ["Paulo, João", "Pereira, José"]
+  date: 2014
+  page-range: 1-30
+  serial-number:
+    doi: 10.1145/2611778
+  parent:
+    type: periodical
+    title: ACM Computing Surveys
+    volume: 47
+    issue: 1
+
+meyer2012:
+  type: article
+  title: A Study of Practical Deduplication
+  author: ["Meyer, Dutch T.", "Bolosky, William J."]
+  date: 2012
+  page-range: 1-20
+  serial-number:
+    doi: 10.1145/2078861.2078864
+  parent:
+    type: periodical
+    title: ACM Transactions on Storage
+    volume: 7
+    issue: 4
+
+fips180:
+  type: report
+  title: "Secure Hash Standard (SHS), FIPS PUB 180-4"
+  author: National Institute of Standards and Technology
+  date: 2015
+  serial-number:
+    doi: 10.6028/NIST.FIPS.180-4
+
+stevens2017:
+  type: article
+  title: The First Collision for Full SHA-1
+  author: ["Stevens, Marc", "Bursztein, Elie", "Karpman, Pierre", "Albertini, Ange", "Markov, Yarik"]
+  date: 2017
+  page-range: 570-596
+  serial-number:
+    doi: 10.1007/978-3-319-63688-7_19
+  parent:
+    type: proceedings
+    title: Advances in Cryptology, CRYPTO 2017, Lecture Notes in Computer Science
+
+spark2012:
+  type: article
+  title: "Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing"
+  author: ["Zaharia, Matei", "Chowdhury, Mosharaf", "Das, Tathagata", "Dave, Ankur", "Ma, Justin", "McCauley, Murphy", "Franklin, Michael J.", "Shenker, Scott", "Stoica, Ion"]
+  date: 2012
+  url:
+    value: https://www.usenix.org/conference/nsdi12/technical-sessions/presentation/zaharia
+  parent:
+    type: proceedings
+    title: 9th USENIX Symposium on Networked Systems Design and Implementation (NSDI)
+
+gutenberg:
+  type: web
+  title: Project Gutenberg
+  author: Project Gutenberg Literary Archive Foundation
+  url:
+    value: https://www.gutenberg.org/
+    date: 2026-11-05
+
+gutenbergrobots:
+  type: web
+  title: Information About Robot Access to our Pages
+  author: Project Gutenberg Literary Archive Foundation
+  url:
+    value: https://www.gutenberg.org/policy/robot_access.html
+    date: 2026-11-05
+
+gutenberglicense:
+  type: web
+  title: The Project Gutenberg License
+  author: Project Gutenberg Literary Archive Foundation
+  url:
+    value: https://www.gutenberg.org/policy/license.html
+    date: 2026-11-05
+
+fastapi:
+  type: web
+  title: FastAPI documentation
+  author: "Ramírez, Sebastián"
+  url:
+    value: https://fastapi.tiangolo.com/
+    date: 2026-11-05

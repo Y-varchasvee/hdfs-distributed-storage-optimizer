@@ -1,0 +1,14 @@
+{
+ "unit": {
+  "passed": 129,
+  "failed": 0
+ },
+ "integration": {
+  "passed": 17,
+  "failed": 0
+ },
+ "browser": {
+  "passed": 13,
+  "failed": 0
+ }
+}

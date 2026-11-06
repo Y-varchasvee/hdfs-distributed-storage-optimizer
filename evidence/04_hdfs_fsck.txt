@@ -1,0 +1,35 @@
+# Captured 2026-11-05T06:41:47Z
+
+$ docker compose exec -T namenode bash -c hdfs fsck /hdfs-optimizer 2>/dev/null | grep -A16 "^Status"; hdfs fsck /hdfs-optimizer 2>/dev/null | tail -2
+Status: HEALTHY
+ Number of data-nodes:	3
+ Number of racks:		1
+ Total dirs:			491
+ Total symlinks:		0
+
+Replicated Blocks:
+ Total size:	16567917 B
+ Total files:	274
+ Total blocks (validated):	274 (avg. block size 60466 B)
+ Minimally replicated blocks:	274 (100.0 %)
+ Over-replicated blocks:	0 (0.0 %)
+ Under-replicated blocks:	0 (0.0 %)
+ Mis-replicated blocks:		0 (0.0 %)
+ Default replication factor:	3
+ Average block replication:	3.0
+ Missing blocks:		0
+
+The filesystem under path '/hdfs-optimizer' is HEALTHY
+[exit code 0]
+
+$ docker compose exec -T namenode bash -c F=$(hdfs dfs -ls -R /hdfs-optimizer/chunks | grep "^-" | head -1 | awk "{print \$NF}"); hdfs fsck "$F" -files -blocks -locations 2>/dev/null | head -8
+FSCK started by hadoop (auth:SIMPLE) from /172.18.0.2 for path /hdfs-optimizer/chunks/00/08/0008e36373b7412301eb430bbdb4c76ce5de833b66d69dd3b0f2654e54720b01 at Thu Nov 05 06:41:52 UTC 2026
+
+/hdfs-optimizer/chunks/00/08/0008e36373b7412301eb430bbdb4c76ce5de833b66d69dd3b0f2654e54720b01 65536 bytes, replicated: replication=3, 1 block(s):  OK
+0. BP-1220415898-172.18.0.2-1793854472026:blk_1073751754_10930 len=65536 Live_repl=3  [DatanodeInfoWithStorage[172.18.0.5:9866,DS-069e40c2-550b-48ed-afb6-ece5cd280736,DISK], DatanodeInfoWithStorage[172.18.0.4:9866,DS-f600f7e4-a8f2-4628-877e-0d7ca43dd90a,DISK], DatanodeInfoWithStorage[172.18.0.3:9866,DS-c6ceee78-740d-44fa-9d8f-981890b460ee,DISK]]
+
+
+Status: HEALTHY
+ Number of data-nodes:	3
+[exit code 0]
+

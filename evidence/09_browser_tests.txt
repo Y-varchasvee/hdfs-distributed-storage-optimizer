@@ -1,0 +1,19 @@
+# Captured 2026-11-05T06:42:16Z
+
+$ npx playwright test  (real browser, real cluster)
+Running 13 tests using 1 worker
+  ✓   1 e2e/app.spec.ts:46:7 › HDFS Optimizer › every page renders without console errors (7.1s)
+  ✓   2 e2e/app.spec.ts:56:7 › HDFS Optimizer › an empty system shows N/A, not invented values (383ms)
+  ✓   3 e2e/app.spec.ts:62:7 › HDFS Optimizer › the cluster page shows real DataNodes (355ms)
+  ✓   4 e2e/app.spec.ts:69:7 › HDFS Optimizer › uploading the same authentic file twice stores it once (1.5s)
+  ✓   5 e2e/app.spec.ts:78:7 › HDFS Optimizer › download restores identical bytes, and verification passes (1.1s)
+  ✓   6 e2e/app.spec.ts:92:7 › HDFS Optimizer › the duplicates page explains the relationship (321ms)
+  ✓   7 e2e/app.spec.ts:98:7 › HDFS Optimizer › delete keeps shared content and restore brings the file back (1.3s)
+  ✓   8 e2e/app.spec.ts:111:7 › HDFS Optimizer › optimization needs a preview, then reclaims space and keeps bytes intact (4.6s)
+  ✓   9 e2e/app.spec.ts:135:7 › HDFS Optimizer › chunk mode shows shared chunks in the chunk map (1.4s)
+  ✓  10 e2e/app.spec.ts:148:7 › HDFS Optimizer › replication above live DataNodes is not offered, and lowering asks for confirmation (648ms)
+  ✓  11 e2e/app.spec.ts:157:7 › HDFS Optimizer › the audit trail records what happened (313ms)
+  ✓  12 e2e/app.spec.ts:164:7 › HDFS Optimizer › diagnostics run real checks against the cluster (580ms)
+  ✓  13 e2e/app.spec.ts:171:7 › HDFS Optimizer › mobile layout has no horizontal page scroll (6.4s)
+  13 passed (28.6s)
+

@@ -1,0 +1,54 @@
+{
+  "scenario": "D2_boundary_shift",
+  "title": "Fixed-size chunking boundary shift",
+  "status": "succeeded",
+  "description": "How much of each variant reuses the original's chunks.",
+  "iterations": 1,
+  "inconsistent_values": [],
+  "extra": {},
+  "rows": [
+    {
+      "variant": "pg1342.truncate_90.txt",
+      "transformation": "Kept the first 90% of the original bytes and removed the rest.",
+      "chunk_size": 65536,
+      "chunks_total": 11,
+      "chunks_reused": 10,
+      "chunks_new": 1,
+      "reuse_percent": 90.9090909090909,
+      "bytes_written_including_manifest": 41144,
+      "variant_bytes": 695147
+    },
+    {
+      "variant": "pg1342.replace_mid_byte.txt",
+      "transformation": "Replaced the single byte at the file's midpoint with a different byte, keeping the length unchanged.",
+      "chunk_size": 65536,
+      "chunks_total": 12,
+      "chunks_reused": 11,
+      "chunks_new": 1,
+      "reuse_percent": 91.66666666666666,
+      "bytes_written_including_manifest": 67002,
+      "variant_bytes": 772386
+    },
+    {
+      "variant": "pg1342.prefix_newline.txt",
+      "transformation": "Inserted one newline byte (0x0A) before the first original byte, shifting every later byte by one.",
+      "chunk_size": 65536,
+      "chunks_total": 12,
+      "chunks_reused": 0,
+      "chunks_new": 12,
+      "reuse_percent": 0.0,
+      "bytes_written_including_manifest": 773853,
+      "variant_bytes": 772387
+    }
+  ],
+  "environment": {
+    "run_started": "2026-11-05T05:50:11.689852+00:00",
+    "machine": "arm64",
+    "os": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.12.4",
+    "hadoop_version": "3.5.0",
+    "live_datanodes": 3,
+    "default_replication": 3,
+    "deployment": "All daemons in Docker containers inside one Colima VM on one laptop; the backend runs on the host."
+  }
+}

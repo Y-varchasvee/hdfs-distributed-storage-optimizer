@@ -1,0 +1,41 @@
+{
+  "scenario": "F_shared_deletion",
+  "title": "Logical deletion with shared content",
+  "status": "succeeded",
+  "description": "Reference-aware deletion of shared content.",
+  "iterations": 1,
+  "inconsistent_values": [],
+  "extra": {
+    "source": "Alice's Adventures in Wonderland"
+  },
+  "rows": [
+    {
+      "mode": "file",
+      "stored_bytes_two_references": 174311,
+      "stored_bytes_after_purging_one": 174311,
+      "survivor_passes_sha256": true,
+      "soft_delete_then_restore_passes_sha256": true,
+      "stored_bytes_after_purging_last": 0,
+      "hdfs_files_after_purging_last": 0
+    },
+    {
+      "mode": "chunk",
+      "stored_bytes_two_references": 174311,
+      "stored_bytes_after_purging_one": 174311,
+      "survivor_passes_sha256": true,
+      "soft_delete_then_restore_passes_sha256": true,
+      "stored_bytes_after_purging_last": 0,
+      "hdfs_files_after_purging_last": 0
+    }
+  ],
+  "environment": {
+    "run_started": "2026-11-05T05:50:11.689852+00:00",
+    "machine": "arm64",
+    "os": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.12.4",
+    "hadoop_version": "3.5.0",
+    "live_datanodes": 3,
+    "default_replication": 3,
+    "deployment": "All daemons in Docker containers inside one Colima VM on one laptop; the backend runs on the host."
+  }
+}

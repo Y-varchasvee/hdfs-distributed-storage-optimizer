@@ -1,0 +1,24 @@
+# Captured 2026-11-05T06:41:41Z
+
+$ docker compose ps --format table {{.Service}}\t{{.Image}}\t{{.State}}\t{{.Health}}\t{{.Ports}}
+SERVICE     IMAGE                         STATE     <no value>   PORTS
+datanode1   hdfs-optimizer/hadoop:3.5.0   running   healthy      127.0.0.1:19864->9864/tcp
+datanode2   hdfs-optimizer/hadoop:3.5.0   running   healthy      127.0.0.1:19865->9864/tcp
+datanode3   hdfs-optimizer/hadoop:3.5.0   running   healthy      127.0.0.1:19866->9864/tcp
+namenode    hdfs-optimizer/hadoop:3.5.0   running   healthy      127.0.0.1:9870->9870/tcp
+[exit code 0]
+
+$ docker compose exec -T namenode hadoop version
+Hadoop 3.5.0
+Source code repository https://github.com/apache/hadoop.git -r dbcc7cd797100e6b32cd84f85b53a5193a5f9af0
+Compiled by cnauroth on 2026-03-24T16:57Z
+Compiled on platform linux-aarch_64
+Compiled with protoc 3.25.5
+From source with checksum 64582ed0a62a169c39a19c734a8f33b5
+This command was run using /opt/hadoop/share/hadoop/common/hadoop-common-3.5.0.jar
+[exit code 0]
+
+$ docker info --format {{.OperatingSystem}} {{.Architecture}} CPUs={{.NCPU}} MemBytes={{.MemTotal}}
+Ubuntu 24.04.4 LTS aarch64 CPUs=4 MemBytes=4093943808
+[exit code 0]
+

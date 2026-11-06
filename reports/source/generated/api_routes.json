@@ -1,0 +1,227 @@
+[
+ {
+  "method": "POST",
+  "path": "/files/upload",
+  "summary": "Spool to disk while hashing, so memory use does not grow with file size, then ingest."
+ },
+ {
+  "method": "GET",
+  "path": "/files",
+  "summary": "List Files"
+ },
+ {
+  "method": "GET",
+  "path": "/files/folders",
+  "summary": "Virtual folders with their direct file counts and sizes."
+ },
+ {
+  "method": "POST",
+  "path": "/files/verify-all",
+  "summary": "Read every active file back from HDFS and compare SHA-256, as a background job."
+ },
+ {
+  "method": "GET",
+  "path": "/files/{file_id}",
+  "summary": "Get File"
+ },
+ {
+  "method": "DELETE",
+  "path": "/files/{file_id}",
+  "summary": "Soft delete by default. ``permanent`` applies only to an already-deleted file."
+ },
+ {
+  "method": "GET",
+  "path": "/files/{file_id}/download",
+  "summary": "Download File"
+ },
+ {
+  "method": "POST",
+  "path": "/files/{file_id}/restore",
+  "summary": "Restore File"
+ },
+ {
+  "method": "POST",
+  "path": "/files/{file_id}/verify",
+  "summary": "Verify File"
+ },
+ {
+  "method": "GET",
+  "path": "/dedup/groups",
+  "summary": "Duplicate Groups"
+ },
+ {
+  "method": "GET",
+  "path": "/dedup/duplicates",
+  "summary": "Duplicates"
+ },
+ {
+  "method": "GET",
+  "path": "/dedup/shared-chunks",
+  "summary": "Chunks used by more than one manifest: shared content inside files that are not identical overall."
+ },
+ {
+  "method": "POST",
+  "path": "/dedup/analyze",
+  "summary": "Dry run. Reports estimated savings and changes nothing in HDFS."
+ },
+ {
+  "method": "POST",
+  "path": "/dedup/optimize",
+  "summary": "Start optimization. Requires a successful preview of the catalog exactly as it is now."
+ },
+ {
+  "method": "GET",
+  "path": "/dedup/jobs",
+  "summary": "List Jobs"
+ },
+ {
+  "method": "GET",
+  "path": "/dedup/jobs/{job_id}",
+  "summary": "Get Job"
+ },
+ {
+  "method": "POST",
+  "path": "/dedup/jobs/{job_id}/resume",
+  "summary": "Run an interrupted or failed optimization again. Finished files are not eligible, so none repeat."
+ },
+ {
+  "method": "GET",
+  "path": "/dedup/gc",
+  "summary": "Preview Garbage"
+ },
+ {
+  "method": "POST",
+  "path": "/dedup/gc",
+  "summary": "Run Garbage Collection"
+ },
+ {
+  "method": "GET",
+  "path": "/health",
+  "summary": "The API is up. HDFS state is reported separately, so a cluster outage stays visible in the UI."
+ },
+ {
+  "method": "GET",
+  "path": "/system/status",
+  "summary": "System Status"
+ },
+ {
+  "method": "GET",
+  "path": "/system/diagnostics",
+  "summary": "Run real checks, including a write, read and delete cycle through a DataNode."
+ },
+ {
+  "method": "GET",
+  "path": "/storage/statistics",
+  "summary": "Storage Statistics"
+ },
+ {
+  "method": "GET",
+  "path": "/storage/savings",
+  "summary": "Storage Savings"
+ },
+ {
+  "method": "GET",
+  "path": "/storage/objects",
+  "summary": "Storage Objects"
+ },
+ {
+  "method": "GET",
+  "path": "/storage/reconcile",
+  "summary": "Reconcile Report"
+ },
+ {
+  "method": "POST",
+  "path": "/storage/reconcile",
+  "summary": "Reconcile Apply"
+ },
+ {
+  "method": "GET",
+  "path": "/cluster/status",
+  "summary": "Cluster Status"
+ },
+ {
+  "method": "GET",
+  "path": "/cluster/nodes",
+  "summary": "Cluster Nodes"
+ },
+ {
+  "method": "GET",
+  "path": "/cluster/replication",
+  "summary": "Cluster Replication"
+ },
+ {
+  "method": "POST",
+  "path": "/cluster/replication",
+  "summary": "Change Replication"
+ },
+ {
+  "method": "GET",
+  "path": "/analytics/overview",
+  "summary": "Analytics Overview"
+ },
+ {
+  "method": "GET",
+  "path": "/analytics/history",
+  "summary": "Analytics History"
+ },
+ {
+  "method": "GET",
+  "path": "/analytics/performance",
+  "summary": "Analytics Performance"
+ },
+ {
+  "method": "GET",
+  "path": "/analytics/report.csv",
+  "summary": "Analytics Report"
+ },
+ {
+  "method": "GET",
+  "path": "/datasets",
+  "summary": "List Datasets"
+ },
+ {
+  "method": "POST",
+  "path": "/datasets/import",
+  "summary": "Import Dataset"
+ },
+ {
+  "method": "POST",
+  "path": "/datasets/ingest",
+  "summary": "Ingest Dataset"
+ },
+ {
+  "method": "GET",
+  "path": "/datasets/provenance",
+  "summary": "Provenance"
+ },
+ {
+  "method": "GET",
+  "path": "/experiments",
+  "summary": "List Experiments"
+ },
+ {
+  "method": "POST",
+  "path": "/experiments/run",
+  "summary": "Run Experiment"
+ },
+ {
+  "method": "GET",
+  "path": "/experiments/{run_id}/export.csv",
+  "summary": "Export Experiment"
+ },
+ {
+  "method": "GET",
+  "path": "/audit/events",
+  "summary": "Audit Events"
+ },
+ {
+  "method": "GET",
+  "path": "/settings",
+  "summary": "Get Settings View"
+ },
+ {
+  "method": "PUT",
+  "path": "/settings",
+  "summary": "Update Settings"
+ }
+]

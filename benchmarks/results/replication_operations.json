@@ -1,0 +1,543 @@
+[
+  {
+    "id": "202538ccabb64148b0a5787b7768b0e4",
+    "previous_factor": 2,
+    "requested_factor": 3,
+    "status": "verified",
+    "files_total": 274,
+    "files_changed": 274,
+    "space_consumed_before": 33135834,
+    "space_consumed_after": 49703751,
+    "details": {
+      "fsck": {
+        "status": "HEALTHY",
+        "total_files": 274,
+        "total_blocks": 274,
+        "minimally_replicated_blocks": 274,
+        "over_replicated_blocks": 0,
+        "under_replicated_blocks": 0,
+        "mis_replicated_blocks": 0,
+        "default_replication": 3,
+        "average_block_replication": 3.0,
+        "missing_blocks": 0,
+        "corrupt_blocks": 0,
+        "missing_replicas": 0,
+        "datanodes": 3
+      },
+      "block_sample": [
+        {
+          "path": "/hdfs-optimizer/manifests/eb/eb61e33cab23dbe712ad57091ded6c7292ba91ac3bb2764f51a3223ec0068fe5.65536.json",
+          "block_id": 1073751993,
+          "length": 9712,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/eb/ebdb1936ffc30d8c22a69ec81ef55e2b4d0e30ffe04c0ef2a5752612b6ac2d96.65536.json",
+          "block_id": 1073751761,
+          "length": 1357,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/d5/d54c2b80d40a40b982cd88852c6180bb944d95acdb028af3d0e01a1750681784.65536.json",
+          "block_id": 1073751816,
+          "length": 1575,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/b5/b5e88b71a1cda068e9ab1d94344c9d932338ba6da1a66def97a1aecd9cfcc87d.65536.json",
+          "block_id": 1073751852,
+          "length": 2343,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/b4/b4fbb3692df1e4d17b7009dd9dc16ece78d8226aae71363a2aa0022990d1189d.65536.json",
+          "block_id": 1073751778,
+          "length": 1466,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/96/96cd16eacdbfebae8fdda5591f66e0cc8ee76be18e0cd1aca02bc00615782d28.65536.json",
+          "block_id": 1073751831,
+          "length": 1684,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/92/922e2a12ccb43a4c9544c260b2166c6ad2097aeb5957faeee113f173bb857cd0.65536.json",
+          "block_id": 1073751801,
+          "length": 1248,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/4f/4f81245d31380ac1d6eafb9a321e3691369bc70985736ae4bccf849a4f784036.65536.json",
+          "block_id": 1073751749,
+          "length": 485,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/3f/3f6bb9d6f78e0293b56acd4714dd68cb7d6d1d293402031ce9d5a216bcaf9d75.65536.json",
+          "block_id": 1073751802,
+          "length": 1466,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/38/387ab4b733788098f3f462e0b3287d32e8a7bf768f2d54dcf7e4145f85a83051.65536.json",
+          "block_id": 1073752008,
+          "length": 1682,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/2f/2f15695969c98b304a52223faba6145d58f791ff9b5b6488acdc48e2eb981482.65536.json",
+          "block_id": 1073751765,
+          "length": 1466,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/2d/2d5bb2ad5f422765e714617e21fa31bbaf8958aa79682c86fca6660fcc5d1b2b.65536.json",
+          "block_id": 1073751905,
+          "length": 5863,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/2b/2b97b7f8aad508649481d8dd4f6b54f9b965ddb3ba634e9151c815f537b49e42.65536.json",
+          "block_id": 1073751790,
+          "length": 921,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/26/26adf6c8ff1384574fca7466df77e226fc048e9ef1eac5c341f0dd997bcb71a4.65536.json",
+          "block_id": 1073751745,
+          "length": 1248,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/01/01b38ea4c710a84bc18d0bd41271a5a1a92b94e97b2812f4dece97d4a694725e.65536.json",
+          "block_id": 1073751782,
+          "length": 485,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/ff/f6/fff6953934a6348ecbf379fd82026fe3c2217419ff5768d4f85832db27fa748c",
+          "block_id": 1073751797,
+          "length": 65536,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/fd/bd/fdbd85e0f9123d91016e7af1d83d82aadb45c4c7728e440fafd47486cad32204",
+          "block_id": 1073751935,
+          "length": 65536,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/fd/7e/fd7efdc0e30ff42cb6d3d43adeaddaf2bf8316575d3625c85caa80bbde3e2e31",
+          "block_id": 1073751978,
+          "length": 65536,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/fd/29/fd2932bd8ea107d7827851beee65ad3177502421e1e224e9970141bd52bfad84",
+          "block_id": 1073751821,
+          "length": 65536,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/fd/0e/fd0e51fc39dd45f1f56f30ed5ed0bfef1b1546b788a246dff32f81344940e900",
+          "block_id": 1073751755,
+          "length": 65536,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/fc/92/fc92fd8e19da90791bc724390c838c3ed1b30b0b495b305b0d99358b33d1ec88",
+          "block_id": 1073751946,
+          "length": 65536,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/fa/39/fa395b1985856854c1f3e21286bc0c746a13272d66197281441eba153a22341b",
+          "block_id": 1073751810,
+          "length": 65536,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/f9/89/f989016d7be6857ceae6a4d7188d65f6130ae96525cfadce5e38c31d8a3c7c4e",
+          "block_id": 1073751984,
+          "length": 65536,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/f7/f8/f7f80c78e2836c5249b6d5e76f449b4373f1145269021f47af1925bd9e4dad7c",
+          "block_id": 1073751806,
+          "length": 65536,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/f7/8b/f78b360ea90c5a093c84dcefe00ceea8c56a71ae66e803bc0ac6915b923583b3",
+          "block_id": 1073751881,
+          "length": 65536,
+          "hosts": [
+            "datanode1",
+            "datanode2",
+            "datanode3"
+          ]
+        }
+      ]
+    },
+    "error": null,
+    "requested_at": "2026-11-05T06:35:03.868998",
+    "completed_at": "2026-11-05T06:38:41.057113",
+    "duration_seconds": 217.188115
+  },
+  {
+    "id": "ad8bb156085b439682b45e86872cb85d",
+    "previous_factor": 3,
+    "requested_factor": 2,
+    "status": "verified",
+    "files_total": 274,
+    "files_changed": 274,
+    "space_consumed_before": 49703751,
+    "space_consumed_after": 33135834,
+    "details": {
+      "fsck": {
+        "status": "HEALTHY",
+        "total_files": 274,
+        "total_blocks": 274,
+        "minimally_replicated_blocks": 274,
+        "over_replicated_blocks": 0,
+        "under_replicated_blocks": 0,
+        "mis_replicated_blocks": 0,
+        "default_replication": 3,
+        "average_block_replication": 2.0,
+        "missing_blocks": 0,
+        "corrupt_blocks": 0,
+        "missing_replicas": 0,
+        "datanodes": 3
+      },
+      "block_sample": [
+        {
+          "path": "/hdfs-optimizer/manifests/eb/eb61e33cab23dbe712ad57091ded6c7292ba91ac3bb2764f51a3223ec0068fe5.65536.json",
+          "block_id": 1073751993,
+          "length": 9712,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/eb/ebdb1936ffc30d8c22a69ec81ef55e2b4d0e30ffe04c0ef2a5752612b6ac2d96.65536.json",
+          "block_id": 1073751761,
+          "length": 1357,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/d5/d54c2b80d40a40b982cd88852c6180bb944d95acdb028af3d0e01a1750681784.65536.json",
+          "block_id": 1073751816,
+          "length": 1575,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/b5/b5e88b71a1cda068e9ab1d94344c9d932338ba6da1a66def97a1aecd9cfcc87d.65536.json",
+          "block_id": 1073751852,
+          "length": 2343,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/b4/b4fbb3692df1e4d17b7009dd9dc16ece78d8226aae71363a2aa0022990d1189d.65536.json",
+          "block_id": 1073751778,
+          "length": 1466,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/96/96cd16eacdbfebae8fdda5591f66e0cc8ee76be18e0cd1aca02bc00615782d28.65536.json",
+          "block_id": 1073751831,
+          "length": 1684,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/92/922e2a12ccb43a4c9544c260b2166c6ad2097aeb5957faeee113f173bb857cd0.65536.json",
+          "block_id": 1073751801,
+          "length": 1248,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/4f/4f81245d31380ac1d6eafb9a321e3691369bc70985736ae4bccf849a4f784036.65536.json",
+          "block_id": 1073751749,
+          "length": 485,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/3f/3f6bb9d6f78e0293b56acd4714dd68cb7d6d1d293402031ce9d5a216bcaf9d75.65536.json",
+          "block_id": 1073751802,
+          "length": 1466,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/38/387ab4b733788098f3f462e0b3287d32e8a7bf768f2d54dcf7e4145f85a83051.65536.json",
+          "block_id": 1073752008,
+          "length": 1682,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/2f/2f15695969c98b304a52223faba6145d58f791ff9b5b6488acdc48e2eb981482.65536.json",
+          "block_id": 1073751765,
+          "length": 1466,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/2d/2d5bb2ad5f422765e714617e21fa31bbaf8958aa79682c86fca6660fcc5d1b2b.65536.json",
+          "block_id": 1073751905,
+          "length": 5863,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/2b/2b97b7f8aad508649481d8dd4f6b54f9b965ddb3ba634e9151c815f537b49e42.65536.json",
+          "block_id": 1073751790,
+          "length": 921,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/26/26adf6c8ff1384574fca7466df77e226fc048e9ef1eac5c341f0dd997bcb71a4.65536.json",
+          "block_id": 1073751745,
+          "length": 1248,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/manifests/01/01b38ea4c710a84bc18d0bd41271a5a1a92b94e97b2812f4dece97d4a694725e.65536.json",
+          "block_id": 1073751782,
+          "length": 485,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/ff/f6/fff6953934a6348ecbf379fd82026fe3c2217419ff5768d4f85832db27fa748c",
+          "block_id": 1073751797,
+          "length": 65536,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/fd/bd/fdbd85e0f9123d91016e7af1d83d82aadb45c4c7728e440fafd47486cad32204",
+          "block_id": 1073751935,
+          "length": 65536,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/fd/7e/fd7efdc0e30ff42cb6d3d43adeaddaf2bf8316575d3625c85caa80bbde3e2e31",
+          "block_id": 1073751978,
+          "length": 65536,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/fd/29/fd2932bd8ea107d7827851beee65ad3177502421e1e224e9970141bd52bfad84",
+          "block_id": 1073751821,
+          "length": 65536,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/fd/0e/fd0e51fc39dd45f1f56f30ed5ed0bfef1b1546b788a246dff32f81344940e900",
+          "block_id": 1073751755,
+          "length": 65536,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/fc/92/fc92fd8e19da90791bc724390c838c3ed1b30b0b495b305b0d99358b33d1ec88",
+          "block_id": 1073751946,
+          "length": 65536,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/fa/39/fa395b1985856854c1f3e21286bc0c746a13272d66197281441eba153a22341b",
+          "block_id": 1073751810,
+          "length": 65536,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/f9/89/f989016d7be6857ceae6a4d7188d65f6130ae96525cfadce5e38c31d8a3c7c4e",
+          "block_id": 1073751984,
+          "length": 65536,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/f7/f8/f7f80c78e2836c5249b6d5e76f449b4373f1145269021f47af1925bd9e4dad7c",
+          "block_id": 1073751806,
+          "length": 65536,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        },
+        {
+          "path": "/hdfs-optimizer/chunks/f7/8b/f78b360ea90c5a093c84dcefe00ceea8c56a71ae66e803bc0ac6915b923583b3",
+          "block_id": 1073751881,
+          "length": 65536,
+          "hosts": [
+            "datanode2",
+            "datanode3"
+          ]
+        }
+      ]
+    },
+    "error": null,
+    "requested_at": "2026-11-05T06:34:50.825847",
+    "completed_at": "2026-11-05T06:35:01.499576",
+    "duration_seconds": 10.673729
+  }
+]

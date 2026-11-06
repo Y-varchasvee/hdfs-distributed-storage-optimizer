@@ -1,0 +1,4 @@
+variant,transformation,chunk_size,chunks_total,chunks_reused,chunks_new,reuse_percent,bytes_written_including_manifest,variant_bytes
+pg1342.truncate_90.txt,Kept the first 90% of the original bytes and removed the rest.,65536,11,10,1,90.9090909090909,41144,695147
+pg1342.replace_mid_byte.txt,"Replaced the single byte at the file's midpoint with a different byte, keeping the length unchanged.",65536,12,11,1,91.66666666666666,67002,772386
+pg1342.prefix_newline.txt,"Inserted one newline byte (0x0A) before the first original byte, shifting every later byte by one.",65536,12,0,12,0.0,773853,772387

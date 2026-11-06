@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<configuration>
+  <property><name>fs.defaultFS</name><value>hdfs://namenode:8020</value></property>
+  <property><name>hadoop.http.staticuser.user</name><value>hadoop</value></property>
+  <!-- HTrash is not used: deletion and recovery are handled by the application's recovery namespace. -->
+  <property><name>fs.trash.interval</name><value>0</value></property>
+</configuration>

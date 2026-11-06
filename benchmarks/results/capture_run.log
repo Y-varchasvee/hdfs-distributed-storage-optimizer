@@ -1,0 +1,30 @@
+
+Running 14 tests using 1 worker
+
+  ✓   1 capture/capture.spec.ts:50:7 › evidence › empty system (1.9s)
+  ✓   2 capture/capture.spec.ts:56:7 › evidence › dataset provenance and ingestion (6.7s)
+  ✓   3 capture/capture.spec.ts:73:7 › evidence › file upload shows real outcomes (2.6s)
+  ✓   4 capture/capture.spec.ts:86:7 › evidence › file details, block locations, verification and restored checksum (1.8s)
+  ✓   5 capture/capture.spec.ts:101:7 › evidence › duplicate analysis (1.4s)
+  ✓   6 capture/capture.spec.ts:107:7 › evidence › dry run, then optimization, then before and after (4.2s)
+  ✓   7 capture/capture.spec.ts:122:7 › evidence › chunk-level sharing on documented partial overlap (22.1s)
+  ✓   8 capture/capture.spec.ts:153:7 › evidence › replication change, for real, down and back up (3.9m)
+  ✓   9 capture/capture.spec.ts:186:7 › evidence › experiments run from the lab (12.0s)
+  ✓  10 capture/capture.spec.ts:198:7 › evidence › final state pages (7.5s)
+  ✓  11 capture/capture.spec.ts:220:7 › evidence › dark mode and phone width (4.5s)
+  ✓  12 capture/capture.spec.ts:240:7 › evidence › NameNode, DataNode and API documentation pages (10.1s)
+  ✓  13 capture/capture.spec.ts:256:7 › evidence › a real DataNode outage is shown as it happens (2.1m)
+  ✓  14 capture/capture.spec.ts:280:7 › evidence › a real NameNode outage is shown as it happens (19.0s)
+
+  Slow test file: capture/capture.spec.ts (7.5m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  14 passed (7.6m)
+Terminal evidence written to evidence/
+replication operations: [(3, 'verified', 217.188115), (2, 'verified', 10.673729)]
+
+Running 1 test using 1 worker
+
+  ✓  1 capture/capture.spec.ts:299:7 › evidence › terminal evidence is rendered from captured output (1.4s)
+
+  1 passed (2.2s)
+Screenshots: screenshots/  Terminal logs: evidence/

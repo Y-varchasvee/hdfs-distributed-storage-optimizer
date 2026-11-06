@@ -1,0 +1,89 @@
+# Captured 2026-11-05T06:41:42Z
+
+$ docker compose exec -T namenode hdfs dfsadmin -report
+Configured Capacity: 94572883968 (88.08 GB)
+Present Capacity: 82651029210 (76.97 GB)
+DFS Remaining: 82596278272 (76.92 GB)
+DFS Used: 54750938 (52.21 MB)
+DFS Used%: 0.07%
+Replicated Blocks:
+	Under replicated blocks: 0
+	Blocks with corrupt replicas: 0
+	Missing blocks: 0
+	Missing blocks (with replication factor 1): 0
+	Badly Distributed Blocks: 0
+	Low redundancy blocks with highest priority to recover: 0
+	Pending deletion blocks: 3
+Erasure Coded Block Groups: 
+	Low redundancy block groups: 0
+	Block groups with corrupt internal blocks: 0
+	Missing block groups: 0
+	Badly Distributed Blocks: 0
+	Low redundancy blocks with highest priority to recover: 0
+	Pending deletion blocks: 0
+
+-------------------------------------------------
+Live datanodes (3):
+
+Name: 172.18.0.3:9866 (hdfs-optimizer-datanode2-1.hdfs-optimizer_default)
+Hostname: datanode2
+Decommission Status : Normal
+Configured Capacity: 31524294656 (29.36 GB)
+DFS Used: 18427962 (17.57 MB)
+Non DFS Used: 2346479558 (2.19 GB)
+DFS Remaining: 27532103680 (25.64 GB)
+DFS Used%: 0.06%
+DFS Remaining%: 87.34%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 0
+Last contact: Thu Nov 05 06:41:41 UTC 2026
+Last Block Report: Thu Nov 05 06:41:32 UTC 2026
+Num of Blocks: 274
+
+
+Name: 172.18.0.4:9866 (hdfs-optimizer-datanode3-1.hdfs-optimizer_default)
+Hostname: datanode3
+Decommission Status : Normal
+Configured Capacity: 31524294656 (29.36 GB)
+DFS Used: 18432058 (17.58 MB)
+Non DFS Used: 2346508230 (2.19 GB)
+DFS Remaining: 27532070912 (25.64 GB)
+DFS Used%: 0.06%
+DFS Remaining%: 87.34%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Thu Nov 05 06:41:42 UTC 2026
+Last Block Report: Thu Nov 05 06:41:30 UTC 2026
+Num of Blocks: 274
+
+
+Name: 172.18.0.5:9866 (hdfs-optimizer-datanode1-1.hdfs-optimizer_default)
+Hostname: datanode1
+Decommission Status : Normal
+Configured Capacity: 31524294656 (29.36 GB)
+DFS Used: 17890918 (17.06 MB)
+Non DFS Used: 2347016602 (2.19 GB)
+DFS Remaining: 27532103680 (25.64 GB)
+DFS Used%: 0.06%
+DFS Remaining%: 87.34%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 0
+Last contact: Thu Nov 05 06:41:41 UTC 2026
+Last Block Report: Thu Nov 05 06:41:29 UTC 2026
+Num of Blocks: 274
+
+
+[exit code 0]
+

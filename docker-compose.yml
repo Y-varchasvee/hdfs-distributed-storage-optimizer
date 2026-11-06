@@ -1,0 +1,99 @@
+# Standard deployment: 1 NameNode, 3 DataNodes, replication factor 3.
+# Start HDFS:           docker compose up -d --wait
+# Also containerise the app:  scripts/build-app-images.sh && docker compose --profile app up -d
+name: hdfs-optimizer
+
+x-hadoop: &hadoop
+  image: hdfs-optimizer/hadoop:3.5.0
+  build:
+    context: infrastructure/docker/hadoop
+    args: { HADOOP_VERSION: "3.5.0" }
+  restart: unless-stopped
+  init: true
+
+x-datanode-health: &datanode-health
+  test: ["CMD-SHELL", "curl -fsS 'http://localhost:9864/jmx?qry=Hadoop:service=DataNode,name=DataNodeInfo' | grep -q ClusterId"]
+  interval: 10s
+  timeout: 5s
+  retries: 12
+  start_period: 20s
+
+services:
+  namenode:
+    <<: *hadoop
+    hostname: namenode
+    command: ["namenode"]
+    environment:
+      HDFS_REPLICATION: "${HDFS_REPLICATION:-3}"
+      HDFS_NAMENODE_OPTS: "-Xmx512m"
+    ports: ["127.0.0.1:9870:9870"]
+    volumes:
+      - ./infrastructure/hadoop:/templates:ro
+      - namenode-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS 'http://localhost:9870/jmx?qry=Hadoop:service=NameNode,name=NameNodeStatus' | grep -q active"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+
+  datanode1: &datanode
+    <<: *hadoop
+    hostname: datanode1
+    command: ["datanode"]
+    depends_on: { namenode: { condition: service_healthy } }
+    environment: { HDFS_REPLICATION: "${HDFS_REPLICATION:-3}", DATANODE_HOSTNAME: datanode1, HDFS_DATANODE_OPTS: "-Xmx256m" }
+    ports: ["127.0.0.1:19864:9864"]
+    volumes:
+      - ./infrastructure/hadoop:/templates:ro
+      - datanode1-data:/data
+    healthcheck: *datanode-health
+
+  datanode2:
+    <<: *datanode
+    hostname: datanode2
+    environment: { HDFS_REPLICATION: "${HDFS_REPLICATION:-3}", DATANODE_HOSTNAME: datanode2, HDFS_DATANODE_OPTS: "-Xmx256m" }
+    ports: ["127.0.0.1:19865:9864"]
+    volumes:
+      - ./infrastructure/hadoop:/templates:ro
+      - datanode2-data:/data
+
+  datanode3:
+    <<: *datanode
+    hostname: datanode3
+    environment: { HDFS_REPLICATION: "${HDFS_REPLICATION:-3}", DATANODE_HOSTNAME: datanode3, HDFS_DATANODE_OPTS: "-Xmx256m" }
+    ports: ["127.0.0.1:19866:9864"]
+    volumes:
+      - ./infrastructure/hadoop:/templates:ro
+      - datanode3-data:/data
+
+  backend:
+    profiles: ["app"]
+    build: { context: backend }
+    depends_on:
+      namenode: { condition: service_healthy }
+      datanode1: { condition: service_healthy }
+    environment:
+      HDFSOPT_NAMENODE_URL: http://namenode:9870
+      HDFSOPT_DATABASE_PATH: /data/metadata.db
+      HDFSOPT_DATASET_DIR: /datasets/raw
+      HDFSOPT_CORS_ORIGINS: http://localhost:3100,http://127.0.0.1:3100
+    ports: ["127.0.0.1:8100:8100"]
+    volumes:
+      - backend-data:/data
+      - ./datasets:/datasets
+
+  frontend:
+    profiles: ["app"]
+    build:
+      context: frontend
+      args: { NEXT_PUBLIC_API_URL: "http://localhost:8100" }
+    depends_on: [backend]
+    ports: ["127.0.0.1:3100:3100"]
+
+volumes:
+  namenode-data:
+  datanode1-data:
+  datanode2-data:
+  datanode3-data:
+  backend-data:

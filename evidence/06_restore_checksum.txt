@@ -1,0 +1,14 @@
+# Captured 2026-11-05T06:41:52Z
+
+$ shasum -a 256 datasets/raw/originals/pg1342.html evidence/restored/same-book-renamed.html
+387ab4b733788098f3f462e0b3287d32e8a7bf768f2d54dcf7e4145f85a83051  datasets/raw/originals/pg1342.html
+387ab4b733788098f3f462e0b3287d32e8a7bf768f2d54dcf7e4145f85a83051  evidence/restored/same-book-renamed.html
+[exit code 0]
+
+$ cmp datasets/raw/originals/pg1342.html evidence/restored/same-book-renamed.html
+[exit code 0]
+
+$ python3 -c import json;m=json.load(open('datasets/provenance/manifest.json'));print([f['sha256'] for f in m['files'] if f['local_path']=='originals/pg1342.html'][0], 'recorded in provenance manifest')
+387ab4b733788098f3f462e0b3287d32e8a7bf768f2d54dcf7e4145f85a83051 recorded in provenance manifest
+[exit code 0]
+

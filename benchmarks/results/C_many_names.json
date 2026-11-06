@@ -1,0 +1,62 @@
+{
+  "scenario": "C_many_names",
+  "title": "Many logical names, identical content",
+  "status": "succeeded",
+  "description": "One authentic file referenced under many logical names.",
+  "iterations": 3,
+  "inconsistent_values": [],
+  "extra": {
+    "source": "Alice's Adventures in Wonderland",
+    "source_bytes": 174311,
+    "logical_names": 20
+  },
+  "rows": [
+    {
+      "upload_duration_s.mean": 0.17614376366933962,
+      "upload_duration_s.min": 0.15558649999729823,
+      "upload_duration_s.max": 0.20519600000989158,
+      "hash_duration_s.mean": 0.005323041628192489,
+      "hash_duration_s.min": 0.0049131259438581765,
+      "hash_duration_s.max": 0.005992290985886939,
+      "upload_bytes": 3486220,
+      "upload_throughput_mib_s.mean": 19.13434535238452,
+      "upload_throughput_mib_s.min": 16.20264759148096,
+      "upload_throughput_mib_s.max": 21.368939306427812,
+      "logical_files": 20,
+      "unique_files": 1,
+      "duplicate_files": 19,
+      "logical_bytes": 3486220,
+      "stored_content_bytes": 174311,
+      "bytes_avoided": 3311909,
+      "savings_percent": 95.0,
+      "dedup_ratio": 20.0,
+      "chunk_count": 0,
+      "chunk_references": 0,
+      "duplicate_chunk_references": 0,
+      "manifest_count": 0,
+      "manifest_bytes": 0,
+      "hdfs_length_bytes": 174311,
+      "hdfs_space_consumed_bytes": 522933,
+      "hdfs_file_count": 1,
+      "hdfs_directory_count.mean": 9,
+      "hdfs_directory_count.min": 9,
+      "hdfs_directory_count.max": 9,
+      "verification.files_checked": 20,
+      "verification.files_passed": 20,
+      "verification.bytes_read": 3486220,
+      "verification.duration_s.mean": 0.16335498599316148,
+      "verification.duration_s.min": 0.14021899999352172,
+      "verification.duration_s.max": 0.1761915829993086
+    }
+  ],
+  "environment": {
+    "run_started": "2026-11-05T05:50:11.689852+00:00",
+    "machine": "arm64",
+    "os": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.12.4",
+    "hadoop_version": "3.5.0",
+    "live_datanodes": 3,
+    "default_replication": 3,
+    "deployment": "All daemons in Docker containers inside one Colima VM on one laptop; the backend runs on the host."
+  }
+}
