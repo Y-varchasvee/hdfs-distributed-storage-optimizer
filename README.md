@@ -1,244 +1,358 @@
+<div align="center">
+
 # HDFS Optimizer
 
-**HDFS-Based Distributed File Replication, Deduplication and Storage Optimization System**
+### Store unique content. Preserve every byte. Understand every replica.
 
-HDFS replicates blocks for safety, but if two people upload the same file, it stores both. HDFS Optimizer adds application-managed deduplication on top of an unmodified Apache Hadoop cluster: identical content is stored once, HDFS still replicates that copy, and every restored file is checked against its original SHA-256.
+**An HDFS-backed storage optimization platform combining content-aware deduplication, verified file recovery, cluster observability, and an interactive web experience.**
 
-- **Whole-file deduplication:** content-addressed objects, with any number of logical names per object.
-- **Chunk-level deduplication:** fixed-size chunks, shared across files, rebuilt from manifests.
-- **Safe optimization:** a dry run first. Each file is verified before its old copy is removed.
-- **Reference-aware deletion:** recoverable deletes, and garbage collection based on database relations.
-- **Replication management:** real factor changes, verified with `fsck` and block locations.
-- **Live monitoring:** NameNode and DataNode state from JMX; storage from the NameNode.
-- **Honest numbers:** every headline value is labelled measured, derived or estimated.
+<p>
+  <img alt="Apache Hadoop" src="https://img.shields.io/badge/Apache_Hadoop-HDFS-202C3A?style=flat-square&logo=apachehadoop&logoColor=white" />
+  <img alt="Python" src="https://img.shields.io/badge/Python-Backend-202C3A?style=flat-square&logo=python&logoColor=white" />
+  <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-REST_API-202C3A?style=flat-square&logo=fastapi&logoColor=white" />
+  <img alt="Next.js" src="https://img.shields.io/badge/Next.js-Frontend-202C3A?style=flat-square&logo=nextdotjs&logoColor=white" />
+  <img alt="Docker" src="https://img.shields.io/badge/Docker-Cluster_Setup-202C3A?style=flat-square&logo=docker&logoColor=white" />
+</p>
 
-Measured results are in [documentation/RESULTS_SUMMARY.md](documentation/RESULTS_SUMMARY.md). Current status is in [PROJECT_STATUS.md](PROJECT_STATUS.md), and every deliverable and limitation is listed in [FINAL_DELIVERY_CHECKLIST.md](FINAL_DELIVERY_CHECKLIST.md).
+[Explore the system](#the-system-at-a-glance) · [Architecture](#system-architecture) · [Quick start](#quick-start) · [Validation](#testing-and-verification) · [Benchmarks](#benchmarking-and-storage-metrics) · [Project report](#academic-deliverables)
 
-## Architecture
+</div>
 
+---
+
+## The idea
+
+Hadoop Distributed File System (HDFS) is designed to store data across multiple DataNodes and protect it using **intentional block replication**. But two independently uploaded files with identical contents can still occupy redundant logical storage.
+
+**HDFS Optimizer addresses that second problem.** It identifies repeated file content, stores reusable data objects, maintains logical file references, and reconstructs files with cryptographic integrity checks. A browser-based interface makes storage behavior, optimization jobs, and cluster state easier to inspect.
+
+> [!IMPORTANT]
+> **Replication is not duplication.** HDFS replicas exist for fault tolerance and must not be removed as a deduplication shortcut. This project's deduplication logic operates at the application-content layer; HDFS remains responsible for its own block placement and replication.
+
+## The system at a glance
+
+| Capability | What it does |
+| :-- | :-- |
+| **Whole-file deduplication** | Uses SHA-256 to identify files with identical byte content—even when names differ. |
+| **Chunk-level content reuse** | Indexes application-managed chunks and reuses previously stored content where supported. |
+| **Content-addressable storage** | Separates logical file names from stored data objects and their references. |
+| **Byte-exact restore** | Rebuilds file contents in the original order and verifies the resulting checksum. |
+| **HDFS replication visibility** | Surfaces cluster topology, replication settings, and available health information. |
+| **Storage analytics** | Compares logical content size with unique content retained and explains storage savings. |
+| **Experiment-driven evaluation** | Uses authentic source documents, reproducible workloads, and measured results. |
+| **Full-stack dashboard** | Brings files, duplicates, jobs, experiments, and monitoring into one interface. |
+
+### Inside the application
+
+| Workspace | Purpose |
+| :-- | :-- |
+| **Overview** | High-level storage metrics, optimization summary, recent activity, and cluster health. |
+| **File explorer** | Browse logical files, inspect metadata, and access file operations. |
+| **Duplicate analysis** | Investigate exact matches and shared-content relationships. |
+| **Optimization center** | Review and execute safe, observable optimization workflows. |
+| **Replication & monitoring** | Explore the HDFS cluster and supported replication controls. |
+| **Analytics & activity** | Review measured trends, job history, and audit information. |
+| **Dataset lab** | Inspect corpus provenance and run reproducible experiments. |
+
+<!-- SCREENSHOT INTEGRATION:
+     Add authentic images only after checking the exact paths in this repository.
+     Suggested layout:
+
+     <p align="center">
+       <img src="screenshots/dashboard.png" alt="Actual HDFS Optimizer dashboard" width="95%" />
+     </p>
+     <p align="center"><em>Live application dashboard, captured from a real project run.</em></p>
+
+     For additional screenshots, prefer a compact 2-column table and link to
+     full-size originals. Never substitute fabricated dashboards for execution evidence.
+-->
+
+## System architecture
+
+The interface communicates with the Python API. The API coordinates file metadata, content hashing, deduplication, integrity checks, and HDFS operations through WebHDFS.
+
+```mermaid
+flowchart TB
+    U["Web browser"] --> UI["Next.js / React UI"]
+    UI --> API["FastAPI REST API"]
+    API --> S["File and deduplication services"]
+    API --> MON["Analytics and cluster monitoring"]
+    S <--> DB[("Relational metadata database")]
+    S --> H["SHA-256 / chunk manifests"]
+    H --> W["WebHDFS client"]
+    MON --> W
+    W --> NN["HDFS NameNode"]
+    NN -. "block placement / metadata" .-> D1["DataNode 1"]
+    NN -. "block placement / metadata" .-> D2["DataNode 2"]
+    NN -. "block placement / metadata" .-> D3["DataNode 3"]
+    W -. "redirected data I/O" .-> D1
+    W -. "redirected data I/O" .-> D2
+    W -. "redirected data I/O" .-> D3
 ```
-Browser (Next.js) -> REST API (FastAPI) -> Services -> WebHDFS -> HDFS (1 NameNode, 3 DataNodes)
-                                              |
-                                              +-> SQLite metadata database
+
+**Design boundaries**
+
+- **HDFS** stores and replicates data; the NameNode manages filesystem metadata and DataNodes store HDFS blocks.
+- **The application** identifies reusable user content and maintains the logical file-to-content mapping.
+- **The metadata database** maintains logical files, content identifiers, manifests, and operation history.
+- **SHA-256** provides content identification and post-restore integrity verification; it does not replace HDFS's own fault-tolerance mechanisms.
+
+> A multi-DataNode cluster running inside one local container VM demonstrates HDFS protocols and block replication, but it does **not** provide failure isolation across physical hosts.
+
+## How deduplication works
+
+### 01 — Whole-file deduplication
+
+1. Stream the uploaded file and compute its SHA-256 digest.
+2. Look up its content identity in the managed index.
+3. Store a new content object only when the bytes are not already represented.
+4. Add a logical file record that references the stored object.
+5. Restore or download the file using that reference and verify the original digest.
+
+```mermaid
+flowchart LR
+    A["Upload"] --> B["SHA-256"]
+    B --> C{"Content exists?"}
+    C -- "No" --> D["Write unique object to HDFS"]
+    C -- "Yes" --> E["Reuse existing object"]
+    D --> F["Commit logical file reference"]
+    E --> F
+    F --> G["Download / checksum verification"]
 ```
 
-HDFS and SQLite cannot share a transaction, so every write follows one order: stage the bytes in HDFS, check them, rename atomically, then commit the metadata. A crash can leave an unreferenced file, which reconciliation finds, but never metadata pointing at missing bytes.
+**Illustrative example:** `report-original.txt` and `report-copy.txt` can remain two separate visible files while referring to one stored content object if their bytes are identical. This is an explanation of behavior, **not a benchmark measurement**.
 
-Diagrams are in `diagrams/`. The full design is in the report.
+### 02 — Chunk-level deduplication
 
-## Requirements
+In chunk mode, the application splits content into deterministic chunks, hashes each chunk, and records the chunk sequence in a manifest. Repeated chunks can be referenced instead of stored again.
 
-| | Standard deployment | Light deployment |
-|---|---|---|
-| Memory for the Docker VM | 4 GB | 3 GB |
-| Free disk | 6 GB (Hadoop image is about 2 GB), plus 5 GB to containerise the app | Same |
-| DataNodes / replication | 3 / factor 3 | 2 / factor 2 |
+This is **application-level chunking**, not direct modification or deduplication of HDFS's internal blocks. Chunk size, manifest overhead, and the HDFS small-file problem affect the practical savings of this approach.
 
-Software: Docker with Compose (or Colima on macOS), Python 3.12, Node.js 22. Tested on an Apple M1 with 8 GB RAM running macOS 26. Pinned versions are in `backend/requirements.txt` and `frontend/package-lock.json`.
+### 03 — Safe restoration and deletion
 
-The official `apache/hadoop` images are amd64-only, so `infrastructure/docker/hadoop/Dockerfile` builds from the official Apache release tarball for your architecture and checks its SHA-512.
+The system must preserve every referenced content object until it is no longer needed. Restoration follows a file manifest or object reference, reconstructs the original byte stream, and compares SHA-256 with the recorded original digest.
 
-## Installation
+**Key invariant:** deleting one logical filename must never break a different logical file that references the same underlying bytes.
 
-On macOS without Docker Desktop:
+## Technology stack
+
+| Layer | Technologies |
+| :-- | :-- |
+| **Web application** | Next.js · React · TypeScript · Tailwind CSS |
+| **API & processing** | Python · FastAPI · SHA-256 hashing |
+| **Distributed storage** | Apache Hadoop HDFS · WebHDFS |
+| **Metadata** | SQLAlchemy · SQLite / relational database |
+| **Local infrastructure** | Docker Compose · Apple Silicon-compatible HDFS environment |
+| **Verification** | Pytest · HDFS integration tests · Playwright browser tests |
+| **Documentation** | Technical report · diagrams · benchmark artifacts · presentation |
+
+Exact dependencies and versions should be taken from the package manifests and lockfiles in this repository.
+
+## Quick start
+
+### Prerequisites
+
+- Git
+- Docker-compatible container runtime (Docker Desktop or Docker CLI with Colima)
+- Python and Node.js versions compatible with the checked-in dependency manifests
+- Sufficient free disk space for HDFS container volumes and the dataset
+
+> [!NOTE]
+> These are **standard entry-point commands for the described repository layout**, not a substitute for verifying the current `docker-compose.yml`, package scripts, and backend application path. Adjust the three commands below if the implementation uses different names.
+
+**1. Clone**
 
 ```bash
-brew install colima docker docker-compose
+git clone https://github.com/YOUR_USERNAME/hdfs-distributed-storage-optimizer.git
+cd hdfs-distributed-storage-optimizer
 ```
 
-Then install dependencies, build the frontend and build the Hadoop image:
+**2. Start HDFS**
 
 ```bash
-scripts/setup.sh
+docker compose up -d
+# Verify the actual service names and mounts in docker-compose.yml
+docker compose ps
 ```
 
-## Starting
+**3. Start the API**
 
 ```bash
-scripts/start-all.sh
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
 ```
 
-| What | Where |
-|---|---|
-| Application | <http://localhost:3100> |
-| API documentation | <http://localhost:8100/docs> |
-| NameNode interface | <http://localhost:9870> |
-| DataNode interfaces | <http://localhost:19864>, `19865`, `19866` |
-
-To run each part separately:
+**4. Start the web application in another terminal**
 
 ```bash
-scripts/start-runtime.sh
+cd frontend
+npm install
+npm run dev
 ```
+
+**5. Open the interfaces**
+
+| Interface | Typical local address |
+| :-- | :-- |
+| Frontend | `http://localhost:3000` |
+| FastAPI OpenAPI documentation | `http://localhost:8000/docs` |
+| HDFS NameNode web UI | `http://localhost:9870` |
+
+The HDFS UI address depends on the Compose port mapping, and WebHDFS redirects must be reachable from the backend environment. Check the repository's configuration rather than assuming these ports are always exposed.
+
+### Environment and local security
+
+Keep all runtime-specific values in environment variables. Use the repository's `.env.example` as the starting point when available. Never commit API keys, database credentials, local `.env` files, HDFS data volumes, or personal files.
+
+When developing on macOS with Colima, check that the container VM has enough memory and storage space. Use a resource-constrained configuration if included in the repository; a requested replication factor must not exceed what the running DataNodes can satisfy.
+
+## Benchmarking and storage metrics
+
+Evaluation should compare baseline logical content against the set of unique objects or chunks actually retained after deduplication.
+
+| Metric | Definition |
+| :-- | :-- |
+| **Logical bytes** | Total bytes across all logical input files. |
+| **Unique content bytes** | Bytes in retained unique content objects/chunks, excluding separate metadata overhead. |
+| **Logical bytes avoided** | `logical_bytes - unique_content_bytes` for a comparable evaluated workload. |
+| **Content reduction** | `(logical_bytes - unique_content_bytes) / logical_bytes × 100%` when logical bytes > 0. |
+| **Deduplication ratio** | `logical_bytes / unique_content_bytes` when unique bytes > 0. |
+| **Recovery success** | Restored files whose SHA-256 matches the recorded source hash. |
+
+**Important:** logical content savings are **not** identical to physical disk-space savings. Replication, HDFS block allocation, small files, metadata, caching, asynchronous deletion, and shared container-VM storage all affect physical measurements.
+
+### Evaluation scenarios
+
+| Scenario | What it examines |
+| :-- | :-- |
+| Unique documents | Baseline cost without deliberate repetition. |
+| Exact copies | Whether identical source bytes reuse stored content. |
+| Shared-content workloads | How chunk reuse and manifest overhead affect storage. |
+| Variable chunk sizes | Trade-offs between content reuse and metadata/object overhead. |
+| Restore and verify | Byte-for-byte correctness after optimization. |
+| Failure and recovery | Response to interrupted operations or HDFS service failures. |
+
+<!-- VERIFIED BENCHMARK RESULTS:
+     Insert a compact table/chart only after reading the committed result JSON/CSV.
+     Suggested columns: scenario, logical size, retained unique size,
+     content reduction, upload/restore time, checksum result.
+     Never replace actual measurements with hypothetical percentages.
+-->
+
+## Testing and verification
+
+The test strategy separates fast tests that can use a controlled local-filesystem adapter from integration tests that exercise **real HDFS**. Browser tests verify the frontend and its interaction with the backend.
+
+| Level | Coverage focus |
+| :-- | :-- |
+| **Unit tests** | Hashes, manifests, reference semantics, validation, and storage calculations. |
+| **HDFS integration tests** | Real reads/writes, replication convergence, deduplication, and reconstruction. |
+| **Browser tests** | Navigation, loading states, overflow/responsiveness, file operations, and user workflows. |
+| **Integrity checks** | SHA-256 agreement between original and downloaded/restored bytes. |
+| **Failure tests** | Interrupted operations, service unavailability, recovery, and consistency. |
+
+The development log reported **126 unit tests**, **17 HDFS integration tests** (repeated across three runs), and **13 browser tests** passing. These are historical development-run results, **not a continuously verified CI status**. Re-run the suites against the final commit and attach current logs before citing these as release results.
+
+Some useful checks, subject to the actual repository layout:
 
 ```bash
-source scripts/env.sh && docker compose up -d --wait
+# Python tests
+cd backend
+python -m pytest -q
+
+# Frontend production build
+cd ../frontend
+npm run build
+
+# HDFS health inspection, where Hadoop CLI is configured
+hdfs dfsadmin -report
+hdfs fsck / -files -blocks -locations
 ```
 
-```bash
-scripts/start-backend.sh
+## Authentic dataset and provenance
+
+The project uses genuine text documents from **[Project Gutenberg](https://www.gutenberg.org/)** for reproducible input workloads, rather than generating a fictitious source dataset.
+
+Example source catalogs include:
+
+- [Pride and Prejudice — eBook #1342](https://www.gutenberg.org/ebooks/1342)
+- [Alice's Adventures in Wonderland — eBook #11](https://www.gutenberg.org/ebooks/11)
+- [The Adventures of Sherlock Holmes — eBook #1661](https://www.gutenberg.org/ebooks/1661)
+
+Development records describe an evaluation corpus of **15 original documents**. The authoritative list of exact downloaded filenames, source URLs, sizes, and hashes should come from the committed provenance manifest.
+
+Exact copies of downloaded originals may be used as a **controlled duplicate-detection workload**; those copies must never be represented as independently sourced originals.
+
+For automated acquisition, use Project Gutenberg's approved [robot/harvest or mirror access](https://www.gutenberg.org/policy/robot_access.html), not unrestricted automated scraping of the main website. Review applicable [usage and copyright terms](https://www.gutenberg.org/policy/terms_of_use.html), especially outside the United States.
+
+## Deployment models
+
+| Mode | Purpose | HDFS availability |
+| :-- | :-- | :-- |
+| **Local full-stack** | Run the real web application, API, metadata store, and HDFS cluster. | Real local HDFS |
+| **Persistent hosted deployment** | Operate FastAPI and HDFS on suitable persistent infrastructure. | Real external HDFS, if configured |
+| **Vercel showcase** | Publicly demonstrate the frontend and clearly labeled recorded/demo workflows. | **Not** hosted on Vercel itself |
+
+Vercel is a suitable place for the Next.js presentation layer, but not for the long-lived NameNode/DataNode cluster. Any showcase must distinguish **recorded experimental results** from **simulated interactions** and must not claim that demo uploads are being stored in live HDFS unless a real backend is connected.
+
+<!-- When deployment exists, insert a verified public URL here. -->
+
+## Repository orientation
+
+A conventional layout for this project is shown below. **Check this against the actual checked-in tree and rename paths before publishing.**
+
+```text
+.
+├── frontend/              # Next.js dashboard
+├── backend/               # FastAPI and storage services
+├── infrastructure/        # Hadoop/container configuration (if separated)
+├── datasets/              # Download scripts and provenance metadata
+├── benchmarks/            # Experiment runners and measured artifacts
+├── screenshots/           # Genuine application and execution evidence
+├── diagrams/              # Architecture diagrams
+├── documentation/         # Technical documentation and viva material
+├── reports/               # Academic report source / final PDF
+├── presentation/          # Slide source / final PPTX
+├── scripts/               # Setup and verification commands
+├── tests/                 # Shared or end-to-end tests
+└── docker-compose.yml     # Local cluster orchestration
 ```
 
-```bash
-scripts/start-frontend.sh
-```
+## Academic deliverables
 
-For the low-memory cluster, stop the standard cluster first, since they use the same ports. Its data is kept in separate volumes:
+The academic submission is designed to include the **complete PDF report** and a presentation covering the problem, objectives, dataset provenance, architecture, methodology, code, execution screenshots, output evidence, result analysis, limitations, and conclusions.
 
-```bash
-docker compose stop && docker compose -f docker-compose.light.yml up -d --wait
-```
+Before adding download links, verify the exact final filenames and commit them or attach the larger artifacts to a GitHub Release. Keep research/benchmark evidence consistent across the README, report, and slides.
 
-To switch back:
+## Known engineering considerations
 
-```bash
-docker compose -f docker-compose.light.yml stop && docker compose up -d --wait
-```
+- **Application chunks vs HDFS blocks:** these are different layers and have different performance characteristics.
+- **HDFS small-file overhead:** storing too many tiny chunks independently can increase NameNode metadata pressure and reduce effective efficiency.
+- **Distributed consistency:** database commits and HDFS operations are not one atomic transaction; staged writes, recovery, and orphan cleanup matter.
+- **Replication convergence:** immediately after a write or replication change, actual block locations may take time to converge.
+- **Storage accounting:** VM disks shared across multiple DataNode containers can make aggregated capacity reports misleading.
+- **Single-host fault tolerance:** three containers on one laptop do not provide protection against failure of the laptop itself.
+- **Security:** local demonstration defaults must be hardened before exposing a writable API or Hadoop services publicly.
 
-To run the backend and frontend in containers too, first build the images. This script stops if free disk falls below a safety margin, because image builds grow the VM's disk on the host. Allow about 5 GB of free space:
+## Further reading
 
-```bash
-scripts/build-app-images.sh
-```
+- [Apache Hadoop — HDFS User Guide](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html)
+- [Apache Hadoop — WebHDFS REST API](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/WebHDFS.html)
+- [Apache Hadoop — HDFS Architecture](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html)
+- [Project Gutenberg — Robot Access Policy](https://www.gutenberg.org/policy/robot_access.html)
 
-```bash
-docker compose --profile app up -d
-```
+## Contributing and license
 
-On the evaluation machine, the backend image was built and tested end to end. The frontend image could not be built with a safe disk margin, so its build steps and server command were tested directly on the host instead (`evidence/13_containerised_app.txt`).
+Issues and technical feedback are welcome. Before accepting outside contributions, document the project's review and testing process.
 
-### Stopping and data
+**License:** no license is asserted here until a valid `LICENSE` file is added. Unless a license is explicitly provided, public visibility on GitHub does not by itself grant broad rights to copy or redistribute the code.
 
-```bash
-scripts/stop-all.sh
-```
+---
 
-Add `--vm` to also stop the Colima VM. HDFS data stays in named Docker volumes across restarts, and the NameNode formats its directory only when it is empty.
-
-To delete disposable demo data, stop the backend first, then run the command below. It removes only this project's HDFS directories and metadata database, using fixed paths, and asks you to type `RESET`.
-
-```bash
-scripts/reset-demo.sh
-```
-
-## Using it
-
-### Dataset
-
-```bash
-backend/.venv/bin/python scripts/download_dataset.py
-```
-
-This fetches authentic Project Gutenberg files and writes provenance to `datasets/provenance/manifest.json`. See [datasets/README.md](datasets/README.md). You can do the same from the **Dataset lab** page, which can also ingest files with labelled workload copies.
-
-### Upload and deduplicate
-
-On **Files**, drag files in and choose a mode. Upload the same file twice under different names: the second reports "Duplicate: no new data stored". To see optimization reclaim space, upload with **No dedup**, then go to **Optimization**: run the dry run, review it, and start.
-
-### Replication
-
-On **Replication**, change the factor. A factor above the number of live DataNodes is refused, and lowering it needs confirmation. Success is reported only after `fsck` and block locations agree.
-
-## Tests
-
-Unit tests use a clearly labelled local-filesystem stand-in in `backend/tests/support/`, which is not part of the application:
-
-```bash
-cd backend && .venv/bin/python -m pytest -m "not hdfs"
-```
-
-Integration tests use the real cluster and authentic files:
-
-```bash
-cd backend && .venv/bin/python -m pytest -m hdfs
-```
-
-Browser tests use a real browser and the real cluster, with an isolated backend. They need the production build and Google Chrome:
-
-```bash
-cd frontend && npx playwright test
-```
-
-## Benchmarks
-
-These run in private HDFS directories and do not touch managed data. Results go to `benchmarks/results/` as CSV and JSON:
-
-```bash
-source scripts/env.sh && backend/.venv/bin/python scripts/run_benchmarks.py --iterations 3
-```
-
-The failure experiments really stop containers and kill a backend process, so do not run them during a demo:
-
-```bash
-source scripts/env.sh && backend/.venv/bin/python scripts/run_failure_experiments.py
-```
-
-Then regenerate the charts and summary:
-
-```bash
-backend/.venv/bin/python scripts/make_charts.py
-```
-
-## Regenerating deliverables
-
-The screenshots come from a live system. Stop the backend, reset the demo data, start the backend again, then run:
-
-```bash
-scripts/capture_evidence.sh
-```
-
-Then build the report. It needs Typst, and includes the source code directly from the repository, so the two cannot diverge:
-
-```bash
-backend/.venv/bin/python scripts/build_report.py
-```
-
-Build the presentation:
-
-```bash
-cd presentation/source && ../../backend/.venv/bin/python prepare_crops.py && npm install --no-audit --no-fund && node build_deck.js
-```
-
-Outputs are `reports/final/HDFS_Storage_Optimizer_Complete_Report.pdf` and `presentation/final/HDFS_Storage_Optimizer_Presentation.pptx`.
-
-## Project layout
-
-| Path | Contents |
-|---|---|
-| `backend/` | FastAPI app, services, models, migrations, tests |
-| `frontend/` | Next.js app and browser tests |
-| `infrastructure/` | Hadoop image and configuration |
-| `datasets/` | Provenance and dataset notes; raw files are downloaded |
-| `scripts/` | Setup, start and stop, benchmarks, evidence, report tools |
-| `benchmarks/results/` | Measured CSV and JSON results and charts |
-| `screenshots/`, `evidence/` | Real screenshots and terminal output |
-| `diagrams/` | Generated architecture diagrams |
-| `documentation/` | Viva preparation and results summary |
-| `reports/`, `presentation/` | Report and deck, source and final |
-
-## Troubleshooting
-
-| Symptom | Cause and fix |
-|---|---|
-| `docker: unknown command: docker compose` | Compose plugin not found. Run `source scripts/env.sh`, which uses this project's Docker config. |
-| Image pulls fail with a credential helper error | Your `~/.docker/config.json` refers to a removed Docker Desktop. `source scripts/env.sh` avoids it. |
-| A port is already in use | Set `BACKEND_PORT` or `FRONTEND_PORT`. Port 3100 was chosen because 3000 is commonly taken. |
-| Uploads fail with 503 after a restart | The NameNode stays in safe mode briefly after starting. Wait a few seconds and retry. |
-| Monitoring seems a few seconds behind | NameNode JMX values are cached for about 10 seconds. |
-| A DataNode stays "live" just after stopping it | Dead-node detection takes about 90 s in this configuration, and about 10.5 minutes with Hadoop defaults. |
-| Replication shows "did not converge in time" | A factor above live DataNodes is refused, so check for a failed DataNode, then try again. |
-| Download fails partway through | The file failed its integrity check, or HDFS went down. Check **Activity**, then use **Verify integrity**. |
-
-## Known limitations
-
-- One API process with a single job worker. Uploads are serialised while they store.
-- SQLite is the index, so it does not scale to billions of chunks.
-- Fixed-size chunking only: a one-byte insertion near the start defeats it. Content-defined chunking is future work.
-- Each chunk is a separate HDFS file, so small chunks cost NameNode memory and much lower throughput. Chunk packing is future work.
-- The test cluster runs on one machine with one disk, so it shows software behaviour, not hardware fault tolerance or production performance.
-- Access control is an optional shared token for local use. No Kerberos, and no per-user permissions.
-- The evaluation dataset is small, and its duplicates are created deliberately.
-
-## Academic demonstration
-
-The script and 36 prepared questions are in [documentation/VIVA_PREPARATION.md](documentation/VIVA_PREPARATION.md).
+<div align="center">
+  <strong>HDFS Optimizer</strong><br />
+  <sub>Content-aware efficiency · Distributed resilience · Verifiable recovery</sub>
+</div>
